@@ -1,0 +1,113 @@
+body {
+    font-family: 'Anton', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+}
+
+header {
+    background-color: #f2f2f2;
+    padding: 10px 20px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.featured-products {
+    background-color: #f4f4f4; /* Destaque para a seção dos mais vendidos */
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar o produto */
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.price {
+    font-size: 16px;
+    color: #d590e8;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #d590e8;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Botões arredondados */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #bf7ac9;
+}
+
+.other-products {
+    padding: 20px;
+    background-color: #fff;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer .social-media a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+}
+
+footer .contact {
+    margin-top: 20px;
+}
