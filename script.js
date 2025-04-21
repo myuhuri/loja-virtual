@@ -1,6 +1,6 @@
 // Função para filtrar os produtos conforme o texto digitado
 function searchProducts() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();  // Obtém o termo de pesquisa em minúsculas
+    const searchTerm = document.getElementById('search').value.toLowerCase();  // Corrigido para o ID correto do HTML
     const products = document.querySelectorAll('.product');  // Seleciona todos os produtos
 
     products.forEach(product => {
@@ -12,3 +12,8 @@ function searchProducts() {
         }
     });
 }
+
+// Redireciona para a página do carrinho ao clicar no botão
+document.getElementById('cartButton').addEventListener('click', function () {
+    window.location.href = 'carrinho.html';
+});

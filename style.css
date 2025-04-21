@@ -11,12 +11,36 @@ header {
     padding: 10px 20px;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .search-container input {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 30px; /* Tornando a barra de pesquisa arredondada */
+}
+
+.cart-container .cart-button {
+    background-color: #d590e8;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-container .cart-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.cart-container .cart-button:hover {
+    background-color: #bf7ac9;
 }
 
 h2 {
@@ -26,7 +50,7 @@ h2 {
 }
 
 .featured-products {
-    background-color: #f4f4f4; /* Destaque para a seção dos mais vendidos */
+    background-color: #f4f4f4;
     padding: 20px;
     margin-top: 20px;
     border-radius: 8px;
@@ -45,7 +69,7 @@ h2 {
     width: 200px;
     margin-bottom: 20px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar o produto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product img {
@@ -81,7 +105,7 @@ h2 {
     background-color: #d590e8;
     color: white;
     border: none;
-    border-radius: 20px; /* Botões arredondados */
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -90,13 +114,8 @@ h2 {
     background-color: #bf7ac9;
 }
 
-.other-products {
-    padding: 20px;
-    background-color: #fff;
-}
-
 footer {
-    background-color: #333;
+    background-color: #bf7ac9;
     color: white;
     padding: 20px;
     text-align: center;
