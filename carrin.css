@@ -2,12 +2,12 @@ body {
     font-family: 'Anton', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    background-color: #101010;
     color: #333;
 }
 
 header {
-    background-color: #f2f2f2;
+    background-color: #101010;
     padding: 20px 20px;
 }
 
@@ -23,9 +23,9 @@ h1 {
 }
 
 .back-button {
-    background-color: #d590e8;
+    background-color: #40615a;
     padding: 10px;
-    color: white;
+    color: #101010;
     text-decoration: none;
     border-radius: 10px;
 }
@@ -37,7 +37,7 @@ h1 {
 .cart-item {
     display: flex;
     margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #191919;
     padding-bottom: 10px;
 }
 
@@ -61,7 +61,7 @@ h1 {
 
 .price {
     font-size: 16px;
-    color: #d590e8;
+    color: #40615a;
 }
 
 .quantity {
@@ -71,8 +71,8 @@ h1 {
 }
 
 .remove-item {
-    background-color: #d590e8;
-    color: white;
+    background-color: #40615a;
+    color: #101010;
     padding: 10px;
     border: none;
     border-radius: 10px;
@@ -81,11 +81,11 @@ h1 {
 }
 
 .remove-item:hover {
-    background-color: #bf7ac9;
+    background-color: #40615a;
 }
 
 .total {
-    background-color: #f4f4f4;
+    background-color: #101010;
     padding: 20px;
     text-align: right;
 }
@@ -96,8 +96,8 @@ h1 {
 }
 
 .checkout {
-    background-color: #d590e8;
-    color: white;
+    background-color: #40615a;
+    color: #101010;
     padding: 15px;
     border: none;
     border-radius: 10px;
@@ -105,5 +105,5 @@ h1 {
 }
 
 .checkout:hover {
-    background-color: #bf7ac9;
+    background-color: #40615a;
 }
