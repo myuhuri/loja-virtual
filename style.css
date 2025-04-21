@@ -8,12 +8,12 @@
 }
 
 body {
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #101010; /* Cor escura do portfólio */
+    color: #fff;
 }
 
 header {
-    background-color: #fff;
+    background-color: #101010; /* Cor escura do portfólio */
     padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: sticky;
@@ -38,8 +38,10 @@ header {
     padding: 10px;
     width: 100%;
     max-width: 250px;
-    border: 1px solid #ccc;
+    border: 1px solid #191919; /* Cor cinza escuro */
     border-radius: 5px;
+    background-color: #191919; /* Cor cinza escuro */
+    color: #fff;
 }
 
 .store-name {
@@ -49,7 +51,7 @@ header {
 
 .store-name h1 {
     font-size: 24px;
-    color: #262032;
+    color: #40615a; /* Verde do portfólio */
 }
 
 .cart-container {
@@ -66,6 +68,7 @@ header {
 .cart-button img {
     width: 28px;
     height: 28px;
+    filter: invert(1); /* Altera a cor do ícone do carrinho para branco */
 }
 
 section {
@@ -77,7 +80,7 @@ section {
 h2 {
     font-size: 28px;
     margin-bottom: 20px;
-    color: #262032;
+    color: #40615a; /* Verde do portfólio */
     text-align: center;
 }
 
@@ -88,7 +91,7 @@ h2 {
 }
 
 .product {
-    background-color: #fff;
+    background-color: #191919; /* Cor escura do portfólio */
     border-radius: 16px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     padding: 20px;
@@ -111,24 +114,24 @@ h2 {
 .product h3 {
     font-size: 20px;
     margin-bottom: 5px;
-    color: #3f384c;
+    color: #40615a; /* Verde do portfólio */
 }
 
 .product .price {
-    color: #555;
+    color: #fff;
     margin-bottom: 10px;
 }
 
 .product .description {
     font-size: 14px;
-    color: #666;
+    color: #aaa;
     margin-bottom: 15px;
 }
 
 .btn {
     padding: 10px 14px;
     margin: 5px 4px;
-    background-color: #d590e8;
+    background-color: #40615a; /* Verde do portfólio */
     color: white;
     border: none;
     border-radius: 12px;
@@ -137,11 +140,11 @@ h2 {
 }
 
 .btn:hover {
-    background-color: #b46dcb;
+    background-color: #354d42; /* Verde mais escuro */
 }
 
 footer {
-    background-color: #262032;
+    background-color: #191919; /* Cor cinza escuro */
     color: #fff;
     padding: 20px 10px;
     text-align: center;
@@ -165,6 +168,23 @@ footer {
 
 .contact p {
     font-size: 14px;
+}
+
+/* Destaque da seção "Mais Vendidos" */
+#best-sellers {
+    background-color: #191919; /* Cor cinza escuro */
+    padding: 40px 20px;
+    border-radius: 16px; /* Cantos arredondados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+h2#best-sellers-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #40615a; /* Verde do portfólio */
+    text-align: center;
 }
 
 /* Responsivo */
