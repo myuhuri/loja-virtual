@@ -1,19 +1,45 @@
-// Função para filtrar os produtos conforme o texto digitado
+// Filtrar produtos conforme a pesquisa
 function searchProducts() {
-    const searchTerm = document.getElementById('search').value.toLowerCase();  // Corrigido para o ID correto do HTML
-    const products = document.querySelectorAll('.product');  // Seleciona todos os produtos
+    const searchTerm = document.getElementById('search').value.toLowerCase();
+    const products = document.querySelectorAll('.product');
 
     products.forEach(product => {
-        const productName = product.querySelector('h3').textContent.toLowerCase();  // Obtém o nome do produto
-        if (productName.includes(searchTerm)) {
-            product.style.display = '';  // Exibe o produto
-        } else {
-            product.style.display = 'none';  // Esconde o produto
-        }
+        const productName = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = productName.includes(searchTerm) ? '' : 'none';
     });
 }
 
-// Redireciona para a página do carrinho ao clicar no botão
+// Redirecionar para a página do carrinho
 document.getElementById('cartButton').addEventListener('click', function () {
     window.location.href = 'carrinho.html';
 });
+
+// Alternar tema claro/escuro
+const toggleButton = document.getElementById("toggle-mode");
+const body = document.body;
+
+function aplicarTemaSalvo() {
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "claro") {
+        body.classList.add("light-mode");
+        toggleButton.textContent = "Modo Escuro";
+    } else {
+        body.classList.remove("light-mode");
+        toggleButton.textContent = "Modo Claro";
+    }
+}
+
+toggleButton.addEventListener("click", () => {
+    body.classList.toggle("light-mode");
+
+    if (body.classList.contains("light-mode")) {
+        toggleButton.textContent = "Modo Escuro";
+        localStorage.setItem("tema", "claro");
+    } else {
+        toggleButton.textContent = "Modo Claro";
+        localStorage.setItem("tema", "escuro");
+    }
+});
+
+// Aplicar tema salvo ao carregar a página
+window.addEventListener("DOMContentLoaded", aplicarTemaSalvo);
