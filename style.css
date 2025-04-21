@@ -1,132 +1,186 @@
-body {
-    font-family: 'Anton', sans-serif;
+/* style.css */
+
+* {
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    box-sizing: border-box;
+    font-family: 'Anton', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
     color: #333;
 }
 
 header {
-    background-color: #f2f2f2;
-    padding: 10px 20px;
+    background-color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
 }
 
 .search-container input {
-    width: 80%;
     padding: 10px;
-    font-size: 16px;
+    width: 100%;
+    max-width: 250px;
     border: 1px solid #ccc;
-    border-radius: 30px; /* Tornando a barra de pesquisa arredondada */
+    border-radius: 5px;
 }
 
-.cart-container .cart-button {
-    background-color: #d590e8;
+.store-name {
+    flex: 1;
+    text-align: center;
+}
+
+.store-name h1 {
+    font-size: 24px;
+    color: #262032;
+}
+
+.cart-container {
+    flex: 1;
+    text-align: right;
+}
+
+.cart-button {
+    background: none;
     border: none;
-    padding: 10px;
-    border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.cart-container .cart-button img {
-    width: 24px;
-    height: 24px;
+.cart-button img {
+    width: 28px;
+    height: 28px;
 }
 
-.cart-container .cart-button:hover {
-    background-color: #bf7ac9;
+section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #262032;
     text-align: center;
-    margin-top: 20px;
-    font-size: 24px;
-}
-
-.featured-products {
-    background-color: #f4f4f4;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
 }
 
 .products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
 .product {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 15px;
-    width: 200px;
-    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
 }
 
 .product img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .product h3 {
-    font-size: 18px;
-    margin: 10px 0;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #3f384c;
 }
 
-.price {
-    font-size: 16px;
-    color: #d590e8;
+.product .price {
+    color: #555;
     margin-bottom: 10px;
 }
 
-.description {
+.product .description {
     font-size: 14px;
     color: #666;
-    margin-bottom: 10px;
-}
-
-.product-actions {
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 .btn {
-    padding: 10px 15px;
+    padding: 10px 14px;
+    margin: 5px 4px;
     background-color: #d590e8;
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #bf7ac9;
+    background-color: #b46dcb;
 }
 
 footer {
-    background-color: #bf7ac9;
-    color: white;
-    padding: 20px;
+    background-color: #262032;
+    color: #fff;
+    padding: 20px 10px;
     text-align: center;
 }
 
-footer .social-media a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: white;
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-footer .contact {
-    margin-top: 20px;
+.social-media {
+    margin-bottom: 10px;
+}
+
+.social-icon {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.contact p {
+    font-size: 14px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .search-container,
+    .cart-container {
+        margin-bottom: 10px;
+    }
+
+    .cart-container {
+        text-align: center;
+    }
 }
