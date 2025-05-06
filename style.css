@@ -32,6 +32,9 @@ header {
 
 .search-container {
     flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .search-container input {
@@ -57,6 +60,10 @@ header {
 .cart-container {
     flex: 1;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
 }
 
 .cart-button {
@@ -79,7 +86,10 @@ body.light-mode .cart-button img {
     filter: invert(0);
 }
 
-.toggle-theme {
+.toggle-theme,
+.login-button,
+.cadastrar-button,
+.entrar-button {
     background-color: #40615a;
     color: white;
     border: none;
@@ -87,11 +97,13 @@ body.light-mode .cart-button img {
     padding: 8px 12px;
     cursor: pointer;
     font-size: 14px;
-    margin-left: 10px;
     transition: background-color 0.3s ease;
 }
 
-.toggle-theme:hover {
+.toggle-theme:hover,
+.login-button:hover,
+.cadastrar-button:hover,
+.entrar-button:hover {
     background-color: #354d42;
 }
 
@@ -195,7 +207,7 @@ footer {
     font-size: 14px;
 }
 
-/* Destaque da seção "Mais Vendidos" */
+/* Seção "Mais Vendidos" */
 #best-sellers {
     background-color: #191919;
     padding: 40px 20px;
@@ -223,10 +235,7 @@ h2#best-sellers-title {
     .search-container,
     .cart-container {
         margin-bottom: 10px;
-    }
-
-    .cart-container {
-        text-align: center;
+        justify-content: center;
     }
 }
 
@@ -276,4 +285,114 @@ body.light-mode .social-icon {
 
 body.light-mode #best-sellers {
     background-color: #eaeaea;
+}
+
+/* === POP-UP DE LOGIN === */
+#loginPopup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.login-content {
+    background-color: #191919;
+    margin: 10% auto;
+    padding: 30px 25px;
+    border: 1px solid #40615a;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+}
+
+.login-content h2 {
+    margin-bottom: 20px;
+    color: #40615a;
+}
+
+.login-content input[type="text"],
+.login-content input[type="password"],
+.login-content input[type="email"] {
+    width: 100%;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border: 1px solid #40615a;
+    border-radius: 10px;
+    background-color: #101010;
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.login-content input[type="text"]:focus,
+.login-content input[type="password"]:focus,
+.login-content input[type="email"]:focus {
+    outline: none;
+    border-color: #5f8379;
+    background-color: #181818;
+}
+
+.login-content input[type="submit"] {
+    background-color: #40615a;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.login-content input[type="submit"]:hover {
+    background-color: #354d42;
+}
+
+#closePopup {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+body.light-mode #loginPopup .login-content {
+    background-color: #fff;
+    color: #111;
+}
+
+body.light-mode #loginPopup input[type="text"],
+body.light-mode #loginPopup input[type="password"],
+body.light-mode #loginPopup input[type="email"] {
+    background-color: #f0f0f0;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+body.light-mode #loginPopup input[type="submit"] {
+    background-color: #40615a;
+    color: #fff;
+}
+
+body.light-mode #closePopup {
+    color: #111;
+}
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
 }

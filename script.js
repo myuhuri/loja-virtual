@@ -5,7 +5,11 @@ function searchProducts() {
 
     products.forEach(product => {
         const productName = product.querySelector('h3').textContent.toLowerCase();
-        product.style.display = productName.includes(searchTerm) ? '' : 'none';
+        if (searchTerm === "") {
+            product.style.display = ''; // Exibe todos os produtos se o campo estiver vazio
+        } else {
+            product.style.display = productName.includes(searchTerm) ? '' : 'none';
+        }
     });
 }
 
@@ -22,10 +26,10 @@ function aplicarTemaSalvo() {
     const temaSalvo = localStorage.getItem("tema");
     if (temaSalvo === "claro") {
         body.classList.add("light-mode");
-        toggleButton.textContent = "Modo Escuro";
+        toggleButton.innerHTML = '<img src="https://img.icons8.com/ios-filled/24/000000/moon.png" alt="Modo Escuro">';
     } else {
         body.classList.remove("light-mode");
-        toggleButton.textContent = "Modo Claro";
+        toggleButton.innerHTML = '<img src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">';
     }
 }
 
@@ -33,13 +37,46 @@ toggleButton.addEventListener("click", () => {
     body.classList.toggle("light-mode");
 
     if (body.classList.contains("light-mode")) {
-        toggleButton.textContent = "Modo Escuro";
+        toggleButton.innerHTML = '<img src="https://img.icons8.com/ios-filled/24/000000/moon.png" alt="Modo Escuro">';
         localStorage.setItem("tema", "claro");
     } else {
-        toggleButton.textContent = "Modo Claro";
+        toggleButton.innerHTML = '<img src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">';
         localStorage.setItem("tema", "escuro");
     }
 });
 
-// Aplicar tema salvo ao carregar a página
 window.addEventListener("DOMContentLoaded", aplicarTemaSalvo);
+
+// Login popup
+const loginPopup = document.getElementById("loginPopup");
+const loginBtn = document.getElementById("loginButton");
+const closeBtn = document.getElementById("closePopup");
+
+loginBtn.addEventListener("click", () => {
+    loginPopup.style.display = "block";
+});
+
+closeBtn.addEventListener("click", () => {
+    loginPopup.style.display = "none";
+});
+
+window.addEventListener("click", function (event) {
+    if (event.target === loginPopup) {
+        loginPopup.style.display = "none";
+    }
+});
+
+// Login funcional (simples)
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (user === "admin" && pass === "1234") {
+        alert("Login realizado com sucesso!");
+        loginPopup.style.display = "none";
+    } else {
+        alert("Usuário ou senha incorretos.");
+    }
+});
