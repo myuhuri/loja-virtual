@@ -5,11 +5,7 @@ function searchProducts() {
 
     products.forEach(product => {
         const productName = product.querySelector('h3').textContent.toLowerCase();
-        if (searchTerm === "") {
-            product.style.display = ''; // Exibe todos os produtos se o campo estiver vazio
-        } else {
-            product.style.display = productName.includes(searchTerm) ? '' : 'none';
-        }
+        product.style.display = searchTerm === "" || productName.includes(searchTerm) ? '' : 'none';
     });
 }
 
@@ -66,7 +62,7 @@ window.addEventListener("click", function (event) {
     }
 });
 
-// Login funcional com saudação
+// Login com Firebase Auth
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const nome = document.getElementById("nome").value.trim();
@@ -74,60 +70,54 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     const password = document.getElementById("password").value.trim();
 
     if (email && password && nome) {
-        // Login bem-sucedido
-        alert("Login realizado com sucesso!");
-        loginPopup.style.display = "none";
-
-        // Mostrar saudação com nome do usuário
-        const greeting = document.getElementById("userGreeting");
-        greeting.textContent = `Bem-vindo, ${nome}`;
-        greeting.style.display = "inline-block";
-
-        // Ocultar botão de login e exibir logout
-        document.getElementById("loginButton").style.display = "none";
-        document.getElementById("logoutButton").style.display = "inline-block";
-
-        // Salvar dados do usuário no localStorage
-        const usuarioLogado = { nome, email };
-        localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                localStorage.setItem("usuarioNome", nome); // apenas nome
+                loginPopup.style.display = "none";
+            })
+            .catch((error) => {
+                if (error.code === "auth/user-not-found") {
+                    firebase.auth().createUserWithEmailAndPassword(email, password)
+                        .then(() => {
+                            localStorage.setItem("usuarioNome", nome);
+                            loginPopup.style.display = "none";
+                            alert("Conta criada com sucesso!");
+                        })
+                        .catch(err => alert("Erro ao cadastrar: " + err.message));
+                } else {
+                    alert("Erro no login: " + error.message);
+                }
+            });
     } else {
         alert("Por favor, preencha todos os campos.");
     }
 });
 
-// Mostrar saudação se o usuário estiver logado
-window.addEventListener("DOMContentLoaded", () => {
-    const usuarioSalvo = JSON.parse(localStorage.getItem("usuarioLogado"));
+// Detectar login/logout com Firebase Auth
+firebase.auth().onAuthStateChanged((user) => {
     const greeting = document.getElementById("userGreeting");
-    
-    if (usuarioSalvo) {
-        // Exibir saudação personalizada
-        greeting.textContent = `Bem-vindo, ${usuarioSalvo.nome}`;
-        greeting.style.display = "inline-block";
+    const loginBtn = document.getElementById("loginButton");
+    const logoutBtn = document.getElementById("logoutButton");
 
-        // Ocultar o botão de login e exibir o de logout
-        document.getElementById("loginButton").style.display = "none";
-        document.getElementById("logoutButton").style.display = "inline-block";
+    if (user) {
+        const nome = localStorage.getItem("usuarioNome") || "Usuário";
+        greeting.textContent = `Bem-vindo, ${nome}`;
+        greeting.style.display = "inline-block";
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
     } else {
-        // Caso o usuário não esteja logado, exibir o botão de login
         greeting.style.display = "none";
-        document.getElementById("loginButton").style.display = "inline-block";
-        document.getElementById("logoutButton").style.display = "none";
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
     }
 });
 
-// Função de logout
+// Logout Firebase
 document.getElementById("logoutButton").addEventListener("click", function () {
-    // Limpar dados do usuário
-    localStorage.removeItem("usuarioLogado");
-
-    // Esconder saudação
-    const greeting = document.getElementById("userGreeting");
-    greeting.style.display = "none";
-
-    // Exibir o botão de login novamente e esconder o de logout
-    document.getElementById("loginButton").style.display = "inline-block";
-    document.getElementById("logoutButton").style.display = "none";
-
-    alert("Você foi deslogado com sucesso!");
+    firebase.auth().signOut()
+        .then(() => {
+            localStorage.removeItem("usuarioNome");
+            alert("Você foi deslogado com sucesso!");
+        })
+        .catch((error) => alert("Erro ao sair: " + error.message));
 });

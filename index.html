@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+
     <header>
         <div class="header-container">
             <div class="login-container">
                 <div class="user-greeting" id="userGreeting" style="display: none;"></div>
                 <button id="loginButton" class="btn login-button">Login</button>
-                <button id="logoutButton" class="btn logout-button" style="display: none;" onclick="logout()">Logout</button>
+                <button id="logoutButton" class="btn logout-button" style="display: none;">Logout</button>
             </div>
             <div class="search-container">
                 <input type="text" placeholder="Pesquisar produtos..." id="search" onkeyup="searchProducts()">
@@ -44,7 +44,6 @@
                 <input type="text" id="nome" placeholder="Nome" required>
                 <input type="email" id="email" placeholder="E-mail" required>
                 <input type="password" id="password" placeholder="Senha" required>
-
                 <button type="submit" id="login-button" class="solid">Entrar</button>
                 <button type="button" id="recover-password-button" class="clear">Recuperar Senha</button>
                 <button type="button">Cadastrar</button>
@@ -55,7 +54,6 @@
     <section class="featured-products">
         <h2>Mais Vendidos</h2>
         <div class="products">
-            <!-- Produtos destacados -->
             <div class="product">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
                 <h3>Sauvage</h3>
@@ -66,7 +64,6 @@
                     <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-        
             <div class="product">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/199119-1200-800/3348901571432_02-highlight-md.jpg.jpg?v=638799914764700000" alt="Miss Dior">
                 <h3>Miss Dior</h3>
@@ -77,7 +74,6 @@
                     <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-        
             <div class="product">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
                 <h3>J'adore</h3>
@@ -88,7 +84,6 @@
                     <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-        
             <div class="product">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/199206-1200-800/3348901627351_02-highlight-md-bb.jpg.jpg?v=638816349799130000" alt="Miss Dior Blooming Bouquet">
                 <h3>Miss Dior Blooming Bouquet</h3>
@@ -113,7 +108,7 @@
                 <button class="btn add-to-cart">Adicionar ao Carrinho</button>
             </div>
             <div class="product">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Produto 2">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Gris Dior">
                 <h3>Gris Dior</h3>
                 <p class="price">R$ 3.199,00</p>
                 <p class="description">Faz uma declaração forte e reconhecível, sempre com elegância.</p>
@@ -133,6 +128,28 @@
             </div>
         </div>
     </footer>
+
+   
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGH_p7RXKwwOvyxuK3TXIlV6qxfSi5tjM",                      
+            authDomain: "dior-imports.firebaseapp.com",  
+            projectId: "dior-imports",                   
+            storageBucket: "dior-imports.firebasestorage.app",   
+            messagingSenderId: "927899020114",         
+            appId: "1:927899020114:web:eba5b8dd55f0e62796288b"                        
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth()
+        .signInWithEmailAndPassword("thaemillyoliveira@acad.ifma.edu.br", "11022631")
+        .then(response => {
+            console.log('success', response)
+        }).catch(error => {
+            console.log('error', error)
+        });
+    </script>
 
     <script src="script.js"></script>
 </body>
