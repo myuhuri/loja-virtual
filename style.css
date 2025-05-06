@@ -396,3 +396,19 @@ body.light-mode #closePopup {
     gap: 8px;
     margin-top: 10px;
 }
+/* Definir a fonte personalizada OPTINaval */
+@font-face {
+    font-family: 'OPTINaval';
+    src: url('fonts/OPTINaval.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Aplicar a fonte no nome da loja */
+.store-name h1 {
+    font-family: 'OPTINaval', serif; /* Aplica a fonte OPTINaval */
+    font-size: 3em; /* Ajuste o tamanho conforme necessário */
+    font-weight: normal; /* Ajuste o peso da fonte conforme necessário */
+    color: #40615a; /* Ajuste a cor conforme necessário */
+    text-align: center; /* Centraliza o título */
+}
