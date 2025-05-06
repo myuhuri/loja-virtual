@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,9 @@
     <header>
         <div class="header-container">
             <div class="login-container">
+                <div class="user-greeting" id="userGreeting" style="display: none;"></div>
                 <button id="loginButton" class="btn login-button">Login</button>
+                <button id="logoutButton" class="btn logout-button" style="display: none;" onclick="logout()">Logout</button>
             </div>
             <div class="search-container">
                 <input type="text" placeholder="Pesquisar produtos..." id="search" onkeyup="searchProducts()">
@@ -32,72 +34,73 @@
             </div>
         </div>
     </header>
-    
+
     <!-- POPUP DE LOGIN -->
     <div id="loginPopup" style="display: none;">
         <div class="login-content">
             <button id="closePopup">&times;</button>
             <h2>Login</h2>
             <form id="loginForm">
-                <input type="email" id="email" placeholder="E-mail" onchange="validacao()" required>
-                <input type="password" id="password" placeholder="Senha" onchange="validacao()" required>
-    
-                <button type="button" id="login-button" class="solid" disabled>Entrar</button>
-                <button type="button" id="recover-password-button" class="clear" disabled>Recuperar Senha</button>
+                <input type="text" id="nome" placeholder="Nome" required>
+                <input type="email" id="email" placeholder="E-mail" required>
+                <input type="password" id="password" placeholder="Senha" required>
+
+                <button type="submit" id="login-button" class="solid">Entrar</button>
+                <button type="button" id="recover-password-button" class="clear">Recuperar Senha</button>
                 <button type="button">Cadastrar</button>
             </form>
         </div>
     </div>
-    
+
     <section class="featured-products">
         <h2>Mais Vendidos</h2>
         <div class="products">
-          <div class="product">
-            <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
-            <h3>Sauvage</h3>
-            <p class="price">R$ 1225,00</p>
-            <p class="description">Um perfume robusto e elegante, perfeito para o dia a dia.</p>
-            <div class="product-actions">
-              <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-              <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
+            <!-- Produtos destacados -->
+            <div class="product">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
+                <h3>Sauvage</h3>
+                <p class="price">R$ 1225,00</p>
+                <p class="description">Um perfume robusto e elegante, perfeito para o dia a dia.</p>
+                <div class="product-actions">
+                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
+                </div>
             </div>
-          </div>
-      
-          <div class="product">
-            <img src="https://lojadior.vtexassets.com/arquivos/ids/199119-1200-800/3348901571432_02-highlight-md.jpg.jpg?v=638799914764700000" alt="Miss Dior">
-            <h3>Miss Dior</h3>
-            <p class="price">R$ 1039,00</p>
-            <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
-            <div class="product-actions">
-              <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-              <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
+        
+            <div class="product">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/199119-1200-800/3348901571432_02-highlight-md.jpg.jpg?v=638799914764700000" alt="Miss Dior">
+                <h3>Miss Dior</h3>
+                <p class="price">R$ 1039,00</p>
+                <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
+                <div class="product-actions">
+                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
+                </div>
             </div>
-          </div>
-      
-          <div class="product">
-            <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
-            <h3>J'adore</h3>
-            <p class="price">R$ 1039,00</p>
-            <p class="description">Elegância atemporal, um clássico da perfumaria.</p>
-            <div class="product-actions">
-              <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-              <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
+        
+            <div class="product">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
+                <h3>J'adore</h3>
+                <p class="price">R$ 1039,00</p>
+                <p class="description">Elegância atemporal, um clássico da perfumaria.</p>
+                <div class="product-actions">
+                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
+                </div>
             </div>
-          </div>
-      
-          <div class="product">
-            <img src="https://lojadior.vtexassets.com/arquivos/ids/199206-1200-800/3348901627351_02-highlight-md-bb.jpg.jpg?v=638816349799130000" alt="Miss Dior Blooming Bouquet">
-            <h3>Miss Dior Blooming Bouquet</h3>
-            <p class="price">R$ 915,00</p>
-            <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
-            <div class="product-actions">
-              <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-              <a href="https://shop.dior.com.br/miss-dior-blooming-bouquet/p?skuId=1543" class="btn view-more">Ver Mais</a>
+        
+            <div class="product">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/199206-1200-800/3348901627351_02-highlight-md-bb.jpg.jpg?v=638816349799130000" alt="Miss Dior Blooming Bouquet">
+                <h3>Miss Dior Blooming Bouquet</h3>
+                <p class="price">R$ 915,00</p>
+                <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
+                <div class="product-actions">
+                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    <a href="https://shop.dior.com.br/miss-dior-blooming-bouquet/p?skuId=1543" class="btn view-more">Ver Mais</a>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
-      
+    </section>
 
     <section class="other-products">
         <h2>Outros Produtos</h2>
