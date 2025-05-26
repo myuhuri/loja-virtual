@@ -30,6 +30,33 @@ header {
     flex-wrap: wrap;
 }
 
+.login-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-greeting {
+    color: #fff;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+body.light-mode .user-greeting {
+    color: #111;
+}
+
+.login-button, .logout-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #40615a;
+    color: white;
+}
+
+.login-button:hover, .logout-button:hover {
+    background-color: #354d42;
+}
+
 .search-container {
     flex: 1;
     display: flex;
@@ -47,14 +74,22 @@ header {
     color: #fff;
 }
 
+body.light-mode .search-container input {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #111;
+}
+
 .store-name {
     flex: 1;
     text-align: center;
 }
 
 .store-name h1 {
-    font-size: 24px;
+    font-size: 3em;
     color: #40615a;
+    font-family: 'OPTINaval', serif;
+    font-weight: normal;
 }
 
 .cart-container {
@@ -180,6 +215,14 @@ h2 {
     background-color: #354d42;
 }
 
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
 footer {
     background-color: #191919;
     color: #fff;
@@ -203,25 +246,22 @@ footer {
     font-size: 16px;
 }
 
+body.light-mode .social-icon {
+    color: #111;
+}
+
 .contact p {
     font-size: 14px;
 }
 
 /* Seção "Mais Vendidos" */
-#best-sellers {
+.featured-products {
     background-color: #191919;
     padding: 40px 20px;
     border-radius: 16px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     color: #fff;
     margin-bottom: 40px;
-}
-
-h2#best-sellers-title {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #40615a;
-    text-align: center;
 }
 
 /* Responsivo */
@@ -249,12 +289,6 @@ body.light-mode header {
     background-color: #ffffff;
 }
 
-body.light-mode .search-container input {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    color: #111;
-}
-
 body.light-mode .store-name h1,
 body.light-mode h2,
 body.light-mode .product h3 {
@@ -276,10 +310,6 @@ body.light-mode .product .price {
 
 body.light-mode footer {
     background-color: #e0e0e0;
-    color: #111;
-}
-
-body.light-mode .social-icon {
     color: #111;
 }
 
@@ -318,43 +348,54 @@ body.light-mode #best-sellers {
     color: #40615a;
 }
 
-.login-content input[type="text"],
-.login-content input[type="password"],
-.login-content input[type="email"] {
+.login-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.login-content input[type="email"],
+.login-content input[type="password"] {
     width: 100%;
-    padding: 10px 14px;
-    margin: 10px 0;
+    padding: 12px 15px;
     border: 1px solid #40615a;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: #101010;
     color: #fff;
     font-family: 'Anton', sans-serif;
-    font-size: 14px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.login-content input[type="text"]:focus,
-.login-content input[type="password"]:focus,
-.login-content input[type="email"]:focus {
-    outline: none;
-    border-color: #5f8379;
-    background-color: #181818;
+body.light-mode .login-content input[type="email"],
+body.light-mode .login-content input[type="password"] {
+    background-color: #f0f0f0;
+    color: #111;
+    border: 1px solid #ccc;
 }
 
-.login-content input[type="submit"] {
+.btn.solid {
     background-color: #40615a;
-    color: #fff;
+    color: white;
     border: none;
-    padding: 12px;
-    width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
 }
 
-.login-content input[type="submit"]:hover {
+.btn.clear {
+    background-color: transparent;
+    color: #40615a;
+    border: 1px solid #40615a;
+}
+
+body.light-mode .btn.clear {
+    color: #40615a;
+    border-color: #40615a;
+}
+
+.btn.solid:hover, .btn:hover {
     background-color: #354d42;
+}
+
+.btn.clear:hover {
+    background-color: rgba(64, 97, 90, 0.1);
 }
 
 #closePopup {
@@ -373,14 +414,6 @@ body.light-mode #loginPopup .login-content {
     color: #111;
 }
 
-body.light-mode #loginPopup input[type="text"],
-body.light-mode #loginPopup input[type="password"],
-body.light-mode #loginPopup input[type="email"] {
-    background-color: #f0f0f0;
-    color: #111;
-    border: 1px solid #ccc;
-}
-
 body.light-mode #loginPopup input[type="submit"] {
     background-color: #40615a;
     color: #fff;
@@ -389,13 +422,7 @@ body.light-mode #loginPopup input[type="submit"] {
 body.light-mode #closePopup {
     color: #111;
 }
-.product-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-}
+
 /* Definir a fonte personalizada OPTINaval */
 @font-face {
     font-family: 'OPTINaval';
@@ -403,12 +430,92 @@ body.light-mode #closePopup {
     font-weight: normal;
     font-style: normal;
 }
+/* Barra de categorias */
+.categories {
+    flex: 2;
+    margin: 0 20px;
+}
 
-/* Aplicar a fonte no nome da loja */
-.store-name h1 {
-    font-family: 'OPTINaval', serif; /* Aplica a fonte OPTINaval */
-    font-size: 3em; /* Ajuste o tamanho conforme necessário */
-    font-weight: normal; /* Ajuste o peso da fonte conforme necessário */
-    color: #40615a; /* Ajuste a cor conforme necessário */
-    text-align: center; /* Centraliza o título */
+.categories ul {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    list-style: none;
+}
+
+.categories a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+    padding: 5px 0;
+    position: relative;
+}
+
+.categories a:hover {
+    color: #40615a;
+}
+
+.categories a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #40615a;
+    transition: width 0.3s;
+}
+
+.categories a:hover::after {
+    width: 100%;
+}
+
+body.light-mode .categories a {
+    color: #111;
+}
+
+/* Barra de busca melhorada */
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #191919;
+    border-radius: 25px;
+    padding: 5px 15px;
+    border: 1px solid #40615a;
+    transition: all 0.3s;
+}
+
+body.light-mode .search-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 200px;
+    color: #fff;
+}
+
+body.light-mode .search-container input {
+    color: #111;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-container img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.6);
+}
+
+body.light-mode .search-container img {
+    filter: invert(0);
 }

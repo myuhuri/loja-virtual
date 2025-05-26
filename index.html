@@ -10,6 +10,7 @@
 <body>
 
     <header>
+        
         <div class="header-container">
             <div class="login-container">
                 <div class="user-greeting" id="userGreeting" style="display: none;"></div>
@@ -19,6 +20,13 @@
             <div class="search-container">
                 <input type="text" placeholder="Pesquisar produtos..." id="search" onkeyup="searchProducts()">
             </div>
+            <nav class="categories">
+    <ul>
+        <li><a href="#">Maquiagem</a></li>
+        <li><a href="#">Feminino</a></li>
+        <li><a href="#">Masculino</a></li>
+    </ul>
+</nav>
             <div class="store-name">
                 <h1>Dior Imports</h1>
             </div>
@@ -41,12 +49,11 @@
             <button id="closePopup">&times;</button>
             <h2>Login</h2>
             <form id="loginForm">
-                <input type="text" id="nome" placeholder="Nome" required>
                 <input type="email" id="email" placeholder="E-mail" required>
                 <input type="password" id="password" placeholder="Senha" required>
-                <button type="submit" id="login-button" class="solid">Entrar</button>
-                <button type="button" id="recover-password-button" class="clear">Recuperar Senha</button>
-                <button type="button">Cadastrar</button>
+                <button type="submit" class="btn solid">Entrar</button>
+                <button type="button" id="recover-password-button" class="btn clear">Recuperar Senha</button>
+                <button type="button" id="register-button" class="btn">Cadastrar</button>
             </form>
         </div>
     </div>
@@ -65,7 +72,7 @@
                 </div>
             </div>
             <div class="product">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/199119-1200-800/3348901571432_02-highlight-md.jpg.jpg?v=638799914764700000" alt="Miss Dior">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/200427-1200-800/3348901571432_02-highlight-md-edp.jpg?v=638836058392300000" alt="Miss Dior">
                 <h3>Miss Dior</h3>
                 <p class="price">R$ 1039,00</p>
                 <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
@@ -85,7 +92,7 @@
                 </div>
             </div>
             <div class="product">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/199206-1200-800/3348901627351_02-highlight-md-bb.jpg.jpg?v=638816349799130000" alt="Miss Dior Blooming Bouquet">
+                <img src="https://lojadior.vtexassets.com/arquivos/ids/200457-1200-800/3348901627375_02-highlight-md-bb.jpg?v=638836058911570000" alt="Miss Dior Blooming Bouquet">
                 <h3>Miss Dior Blooming Bouquet</h3>
                 <p class="price">R$ 915,00</p>
                 <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
@@ -129,28 +136,133 @@
         </div>
     </footer>
 
-   
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    
     <script>
+        // Configuração do Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyBGH_p7RXKwwOvyxuK3TXIlV6qxfSi5tjM",                      
-            authDomain: "dior-imports.firebaseapp.com",  
-            projectId: "dior-imports",                   
-            storageBucket: "dior-imports.firebasestorage.app",   
-            messagingSenderId: "927899020114",         
-            appId: "1:927899020114:web:eba5b8dd55f0e62796288b"                        
+            apiKey: "AIzaSyBGH_p7RXKwwOvyxuK3TXIlV6qxfSi5tjM",
+            authDomain: "dior-imports.firebaseapp.com",
+            projectId: "dior-imports",
+            storageBucket: "dior-imports.appspot.com",
+            messagingSenderId: "927899020114",
+            appId: "1:927899020114:web:eba5b8dd55f0e62796288b"
         };
+        
+        // Inicialize o Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.auth()
-        .signInWithEmailAndPassword("thaemillyoliveira@acad.ifma.edu.br", "11022631")
-        .then(response => {
-            console.log('success', response)
-        }).catch(error => {
-            console.log('error', error)
+        const auth = firebase.auth();
+        
+        // Elementos da interface
+        const loginButton = document.getElementById('loginButton');
+        const logoutButton = document.getElementById('logoutButton');
+        const userGreeting = document.getElementById('userGreeting');
+        const loginPopup = document.getElementById('loginPopup');
+        const closePopup = document.getElementById('closePopup');
+        const loginForm = document.getElementById('loginForm');
+        const registerButton = document.getElementById('register-button');
+        const recoverPasswordButton = document.getElementById('recover-password-button');
+        const toggleMode = document.getElementById('toggle-mode');
+        
+        // Mostrar popup de login
+        loginButton.addEventListener('click', () => {
+            loginPopup.style.display = 'block';
         });
-    </script>
+        
+        // Fechar popup
+        closePopup.addEventListener('click', () => {
+            loginPopup.style.display = 'none';
+        });
+        
+        // Login com email e senha
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    loginPopup.style.display = 'none';
+                    loginForm.reset();
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+        
+        // Registro de nova conta
+        registerButton.addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos para se registrar.');
+                return;
+            }
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    alert('Conta criada com sucesso!');
+                    loginPopup.style.display = 'none';
+                    loginForm.reset();
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+        
+        // Recuperação de senha
+        recoverPasswordButton.addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert('Por favor, insira seu e-mail para recuperar a senha.');
+                return;
+            }
+            
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+        
+        // Logout
+        logoutButton.addEventListener('click', () => {
+            auth.signOut();
+        });
+        
+        // Monitorar estado de autenticação
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Usuário logado
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+                userGreeting.style.display = 'block';
+                userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
+            } else {
+                // Usuário não logado
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+                userGreeting.style.display = 'none';
+            }
+        });
 
-    <script src="script.js"></script>
+        // Controle do modo claro/escuro
+        toggleMode.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+
+        // Função de pesquisa (simulada)
+        function searchProducts() {
+            // Implementação da pesquisa pode ser adicionada aqui
+            console.log("Pesquisando...");
+        }
+    </script>
 </body>
 </html>
