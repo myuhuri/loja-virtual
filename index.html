@@ -10,7 +10,6 @@
 <body>
 
     <header>
-        
         <div class="header-container">
             <div class="login-container">
                 <div class="user-greeting" id="userGreeting" style="display: none;"></div>
@@ -21,12 +20,34 @@
                 <input type="text" placeholder="Pesquisar produtos..." id="search" onkeyup="searchProducts()">
             </div>
             <nav class="categories">
-    <ul>
-        <li><a href="#">Maquiagem</a></li>
-        <li><a href="#">Feminino</a></li>
-        <li><a href="#">Masculino</a></li>
-    </ul>
-</nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Maquiagem</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Batom</a></li>
+                            <li><a href="#">Paleta de Sombras</a></li>
+                            <li><a href="#">Base</a></li>
+                            <li><a href="#">Máscara de Cílios</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Feminino</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Perfumes</a></li>
+                            <li><a href="#">Cremes</a></li>
+                            <li><a href="#">Tratamentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Masculino</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Perfumes</a></li>
+                            <li><a href="#">Gel de Banho</a></li>
+                            <li><a href="#">Cuidados com a Barba</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
             <div class="store-name">
                 <h1>Dior Imports</h1>
             </div>
@@ -263,6 +284,43 @@
             // Implementação da pesquisa pode ser adicionada aqui
             console.log("Pesquisando...");
         }
+
+        // Dropdown menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+                        if (otherMenu !== menu) {
+                            otherMenu.style.display = 'none';
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (menu.style.display === 'block') {
+                        menu.style.display = 'none';
+                    } else {
+                        menu.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
