@@ -496,7 +496,7 @@ a {
 /* FONTE */
 @font-face {
     font-family: 'OPTINaval';
-    src: url('fonts/OPTINaval.ttf') format('truetype');
+    src: url('fonts/OPTINaval.otf') format('truetype');
 }
 
 /* RESPONSIVO */
