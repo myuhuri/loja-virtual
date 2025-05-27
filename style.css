@@ -264,6 +264,24 @@ body.light-mode .social-icon {
     margin-bottom: 40px;
 }
 
+body.light-mode .featured-products {
+    background-color: #fdfdfd;
+    color: #111;
+}
+
+body.light-mode .featured-products .product {
+    background-color: #f0f0f0;
+    color: #111;
+}
+
+body.light-mode .featured-products .product .description {
+    color: #555;
+}
+
+body.light-mode .featured-products .product .price {
+    color: #222;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
     .header-container {
@@ -311,10 +329,6 @@ body.light-mode .product .price {
 body.light-mode footer {
     background-color: #e0e0e0;
     color: #111;
-}
-
-body.light-mode #best-sellers {
-    background-color: #eaeaea;
 }
 
 /* === POP-UP DE LOGIN === */
