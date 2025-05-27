@@ -496,7 +496,7 @@ a {
 /* FONTE */
 @font-face {
     font-family: 'OPTINaval';
-    src: url('fonts/OPTINaval.otf') format('truetype');
+    src: url('fonts/OPTINaval.ttf') format('truetype');
 }
 
 /* RESPONSIVO */
@@ -528,3 +528,17 @@ a {
         opacity: 1;
     }
 }
+    .product img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .no-results {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #888;
+      margin-top: 20px;
+      display: none;
+    }

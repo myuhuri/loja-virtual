@@ -56,6 +56,7 @@
                     <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
                 </a>
             </div>
+
             <div class="mode-toggle-container">
                 <button id="toggle-mode" class="btn">
                     <img src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">
@@ -162,7 +163,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
     
     <script>
-        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBGH_p7RXKwwOvyxuK3TXIlV6qxfSi5tjM",
             authDomain: "dior-imports.firebaseapp.com",
@@ -172,11 +172,9 @@
             appId: "1:927899020114:web:eba5b8dd55f0e62796288b"
         };
         
-        // Inicialize o Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        
-        // Elementos da interface
+
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
         const userGreeting = document.getElementById('userGreeting');
@@ -187,23 +185,18 @@
         const recoverPasswordButton = document.getElementById('recover-password-button');
         const toggleMode = document.getElementById('toggle-mode');
         
-        // Mostrar popup de login
         loginButton.addEventListener('click', () => {
             loginPopup.style.display = 'block';
         });
-        
-        // Fechar popup
+
         closePopup.addEventListener('click', () => {
             loginPopup.style.display = 'none';
         });
-        
-        // Login com email e senha
+
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
             auth.signInWithEmailAndPassword(email, password)
                 .then(() => {
                     loginPopup.style.display = 'none';
@@ -213,17 +206,14 @@
                     alert(error.message);
                 });
         });
-        
-        // Registro de nova conta
+
         registerButton.addEventListener('click', () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
             if (!email || !password) {
                 alert('Por favor, preencha todos os campos para se registrar.');
                 return;
             }
-            
             auth.createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     alert('Conta criada com sucesso!');
@@ -234,16 +224,13 @@
                     alert(error.message);
                 });
         });
-        
-        // Recuperação de senha
+
         recoverPasswordButton.addEventListener('click', () => {
             const email = document.getElementById('email').value;
-            
             if (!email) {
                 alert('Por favor, insira seu e-mail para recuperar a senha.');
                 return;
             }
-            
             auth.sendPasswordResetEmail(email)
                 .then(() => {
                     alert('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
@@ -252,67 +239,65 @@
                     alert(error.message);
                 });
         });
-        
-        // Logout
+
         logoutButton.addEventListener('click', () => {
             auth.signOut();
         });
-        
-        // Monitorar estado de autenticação
+
         auth.onAuthStateChanged((user) => {
             if (user) {
-                // Usuário logado
                 loginButton.style.display = 'none';
                 logoutButton.style.display = 'block';
                 userGreeting.style.display = 'block';
                 userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
             } else {
-                // Usuário não logado
                 loginButton.style.display = 'block';
                 logoutButton.style.display = 'none';
                 userGreeting.style.display = 'none';
             }
         });
 
-        // Controle do modo claro/escuro
         toggleMode.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
         });
 
-        // Função de pesquisa (simulada)
+        // Função real de pesquisa que filtra os produtos dinamicamente
         function searchProducts() {
-            // Implementação da pesquisa pode ser adicionada aqui
-            console.log("Pesquisando...");
+            const input = document.getElementById('search').value.toLowerCase();
+            const allProducts = document.querySelectorAll('.product');
+
+            allProducts.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                const description = product.querySelector('.description')?.textContent.toLowerCase() || '';
+
+                if (title.includes(input) || description.includes(input)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
         }
 
-        // Dropdown menu functionality
+        // Dropdowns
         document.addEventListener('DOMContentLoaded', function() {
             const dropdowns = document.querySelectorAll('.dropdown');
-            
+
             dropdowns.forEach(dropdown => {
                 const link = dropdown.querySelector('a');
                 const menu = dropdown.querySelector('.dropdown-menu');
-                
+
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Close all other dropdowns
                     document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
                         if (otherMenu !== menu) {
                             otherMenu.style.display = 'none';
                         }
                     });
-                    
-                    // Toggle current dropdown
-                    if (menu.style.display === 'block') {
-                        menu.style.display = 'none';
-                    } else {
-                        menu.style.display = 'block';
-                    }
+
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
                 });
             });
-            
-            // Close dropdowns when clicking outside
+
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.dropdown')) {
                     document.querySelectorAll('.dropdown-menu').forEach(menu => {
