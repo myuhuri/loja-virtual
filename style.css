@@ -534,3 +534,73 @@ a {
       margin-top: 20px;
       display: none;
 }
+/* POPUPS DE CADASTRO */
+#clientesPopup, #produtosPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 9999;
+}
+
+#clientesPopup .login-content, #produtosPopup .login-content {
+    position: relative;
+    background-color: #191919;
+    margin: 10% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(64, 97, 90, 0.7);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode #clientesPopup .login-content,
+body.light-mode #produtosPopup .login-content {
+    background-color: #fff;
+    color: #333;
+}
+
+#closeClientesPopup, #closeProdutosPopup {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+body.light-mode #closeClientesPopup,
+body.light-mode #closeProdutosPopup {
+    color: #333;
+}
+
+#clientesForm, #produtosForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#clientesForm input, #produtosForm input {
+    padding: 12px 15px;
+    border: 1px solid #40615a;
+    border-radius: 8px;
+    background-color: #101010;
+    color: #fff;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.light-mode #clientesForm input,
+body.light-mode #produtosForm input {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}

@@ -46,6 +46,13 @@
                             <li><a href="#">Cuidados com a Barba</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#">Cadastro</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="clientes-button">Clientes</a></li>
+                            <li><a href="#" id="produtos-button">Produto</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <div class="store-name">
@@ -76,6 +83,35 @@
                 <button type="submit" class="btn solid">Entrar</button>
                 <button type="button" id="recover-password-button" class="btn clear">Recuperar Senha</button>
                 <button type="button" id="register-button" class="btn">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPUP DE CADASTRO DE CLIENTES -->
+    <div id="clientesPopup" style="display: none;">
+        <div class="login-content">
+            <button id="closeClientesPopup">&times;</button>
+            <h2>Cadastro de Clientes</h2>
+            <form id="clientesForm">
+                <input type="text" id="nomeCliente" placeholder="Nome completo" required>
+                <input type="text" id="cpfCliente" placeholder="CPF" required>
+                <input type="text" id="enderecoCliente" placeholder="Endereço" required>
+                <input type="tel" id="telefoneCliente" placeholder="Telefone" required>
+                <button type="submit" class="btn solid">Cadastrar Cliente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- POPUP DE CADASTRO DE PRODUTOS -->
+    <div id="produtosPopup" style="display: none;">
+        <div class="login-content">
+            <button id="closeProdutosPopup">&times;</button>
+            <h2>Cadastro de Produtos</h2>
+            <form id="produtosForm">
+                <input type="text" id="nomeProduto" placeholder="Nome do produto" required>
+                <input type="text" id="idProduto" placeholder="ID do produto" required>
+                <input type="text" id="categoriaProduto" placeholder="Categoria" required>
+                <button type="submit" class="btn solid">Cadastrar Produto</button>
             </form>
         </div>
     </div>
@@ -161,6 +197,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     
     <script>
         const firebaseConfig = {
@@ -174,6 +211,7 @@
         
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        const database = firebase.database();
 
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
@@ -185,12 +223,84 @@
         const recoverPasswordButton = document.getElementById('recover-password-button');
         const toggleMode = document.getElementById('toggle-mode');
         
+        // Elementos do cadastro
+        const clientesButton = document.getElementById('clientes-button');
+        const produtosButton = document.getElementById('produtos-button');
+        const clientesPopup = document.getElementById('clientesPopup');
+        const produtosPopup = document.getElementById('produtosPopup');
+        const closeClientesPopup = document.getElementById('closeClientesPopup');
+        const closeProdutosPopup = document.getElementById('closeProdutosPopup');
+        const clientesForm = document.getElementById('clientesForm');
+        const produtosForm = document.getElementById('produtosForm');
+
         loginButton.addEventListener('click', () => {
             loginPopup.style.display = 'block';
         });
 
         closePopup.addEventListener('click', () => {
             loginPopup.style.display = 'none';
+        });
+
+        clientesButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            clientesPopup.style.display = 'block';
+        });
+
+        produtosButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            produtosPopup.style.display = 'block';
+        });
+
+        closeClientesPopup.addEventListener('click', () => {
+            clientesPopup.style.display = 'none';
+        });
+
+        closeProdutosPopup.addEventListener('click', () => {
+            produtosPopup.style.display = 'none';
+        });
+
+        clientesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('nomeCliente').value;
+            const cpf = document.getElementById('cpfCliente').value;
+            const endereco = document.getElementById('enderecoCliente').value;
+            const telefone = document.getElementById('telefoneCliente').value;
+            
+            // Salvar no Firebase
+            database.ref('clientes').push({
+                nome: nome,
+                cpf: cpf,
+                endereco: endereco,
+                telefone: telefone,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                alert('Cliente cadastrado com sucesso!');
+                clientesForm.reset();
+                clientesPopup.style.display = 'none';
+            }).catch((error) => {
+                alert('Erro ao cadastrar cliente: ' + error.message);
+            });
+        });
+
+        produtosForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('nomeProduto').value;
+            const idProduto = document.getElementById('idProduto').value;
+            const categoria = document.getElementById('categoriaProduto').value;
+            
+            // Salvar no Firebase
+            database.ref('produtos').push({
+                nome: nome,
+                idProduto: idProduto,
+                categoria: categoria,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                alert('Produto cadastrado com sucesso!');
+                produtosForm.reset();
+                produtosPopup.style.display = 'none';
+            }).catch((error) => {
+                alert('Erro ao cadastrar produto: ' + error.message);
+            });
         });
 
         loginForm.addEventListener('submit', (e) => {
