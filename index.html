@@ -59,7 +59,7 @@
                 <h1>Dior Imports</h1>
             </div>
             <div class="cart-container">
-                <a href="carrinho.html" class="cart-button">
+                <a href="#" id="cartLink" class="cart-button">
                     <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
@@ -67,11 +67,119 @@
 
             <div class="mode-toggle-container">
                 <button id="toggle-mode" class="btn">
-                    <img src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">
+                    <img id="mode-icon" src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- Seção principal (alterna entre loja e carrinho) -->
+    <main id="mainContent">
+        <!-- Conteúdo da Loja -->
+        <section id="storeContent">
+            <section class="featured-products">
+                <h2>Mais Vendidos</h2>
+                <div class="products">
+                    <div class="product" data-id="1">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
+                        <h3>Sauvage</h3>
+                        <p class="price">R$ 1225,00</p>
+                        <p class="description">Um perfume robusto e elegante, perfeito para o dia a dia.</p>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                            <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
+                        </div>
+                    </div>
+                    <div class="product" data-id="2">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/200427-1200-800/3348901571432_02-highlight-md-edp.jpg?v=638836058392300000" alt="Miss Dior">
+                        <h3>Miss Dior</h3>
+                        <p class="price">R$ 1039,00</p>
+                        <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                            <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
+                        </div>
+                    </div>
+                    <div class="product" data-id="3">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
+                        <h3>J'adore</h3>
+                        <p class="price">R$ 1039,00</p>
+                        <p class="description">Elegância atemporal, um clássico da perfumaria.</p>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                            <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
+                        </div>
+                    </div>
+                    <div class="product" data-id="4">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/200457-1200-800/3348901627375_02-highlight-md-bb.jpg?v=638836058911570000" alt="Miss Dior Blooming Bouquet">
+                        <h3>MissDior Blooming Bouquet</h3>
+                        <p class="price">R$ 915,00</p>
+                        <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
+                        <div class="product-actions">
+                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                            <a href="https://shop.dior.com.br/miss-dior-blooming-bouquet/p?skuId=1543" class="btn view-more">Ver Mais</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="other-products">
+                <h2>Outros Produtos</h2>
+                <div class="products">
+                    <div class="product" data-id="5">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/199149-1200-800/3348900378551_02-highlight-poison.jpg.jpg?v=638799921511700000" alt="Hypnotic Poison">
+                        <h3>Hypnotic Poison</h3>
+                        <p class="price">R$ 915,00</p>
+                        <p class="description">Um perfume oriental arrebatador, incrivelmente sensual.</p>
+                        <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="product" data-id="6">
+                        <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Gris Dior">
+                        <h3>Gris Dior</h3>
+                        <p class="price">R$ 3.199,00</p>
+                        <p class="description">Faz uma declaração forte e reconhecível, sempre com elegância.</p>
+                        <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Conteúdo do Carrinho (inicialmente oculto) -->
+        <section id="cartContent" style="display: none;">
+            <div class="cart-header">
+                <button id="backToStore" class="btn back-button">Voltar para a Loja</button>
+                <h2>Carrinho de Compras</h2>
+            </div>
+
+            <section class="cart-items">
+                <div id="cartItemsContainer">
+                    <!-- Itens serão inseridos aqui via JavaScript -->
+                </div>
+            </section>
+
+            <section class="cart-summary">
+                <div class="coupon-container">
+                    <input type="text" id="couponCode" placeholder="Código de desconto">
+                    <button id="applyCoupon" class="btn">Aplicar</button>
+                </div>
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-row" id="discountRow" style="display: none;">
+                        <span>Desconto:</span>
+                        <span id="discount">-R$ 0,00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">R$ 0,00</span>
+                    </div>
+                    <button id="checkoutButton" class="btn checkout">Finalizar Compra</button>
+                </div>
+            </section>
+        </section>
+    </main>
 
     <!-- POPUP DE LOGIN -->
     <div id="loginPopup" class="modal">
@@ -118,16 +226,11 @@
     </div>
 
     <!-- POPUP DE ITEM ADICIONADO -->
-    <div id="addedToCartPopup" class="modal">
+    <div id="addedToCartPopup" class="modal temporary-popup">
         <div class="modal-content">
-            <button class="close-modal">&times;</button>
             <div class="popup-icon">✓</div>
             <h2>Item Adicionado!</h2>
             <p>O produto foi adicionado ao seu carrinho.</p>
-            <div class="popup-buttons">
-                <button class="btn" id="continueShopping">Continuar Comprando</button>
-                <a href="carrinho.html" class="btn solid">Ver Carrinho</a>
-            </div>
         </div>
     </div>
 
@@ -142,6 +245,15 @@
         </div>
     </div>
 
+    <!-- POPUP DE DESCONTO APLICADO -->
+    <div id="discountAppliedPopup" class="modal temporary-popup">
+        <div class="modal-content">
+            <div class="popup-icon">✓</div>
+            <h2>Desconto Aplicado!</h2>
+            <p>Seu cupom de desconto foi aplicado com sucesso.</p>
+        </div>
+    </div>
+
     <!-- POPUP DE PEDIDO REALIZADO -->
     <div id="orderCompletedPopup" class="modal">
         <div class="modal-content">
@@ -152,72 +264,6 @@
             <button class="btn solid close-modal">Fechar</button>
         </div>
     </div>
-
-    <section class="featured-products">
-        <h2>Mais Vendidos</h2>
-        <div class="products">
-            <div class="product" data-id="1">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
-                <h3>Sauvage</h3>
-                <p class="price">R$ 1225,00</p>
-                <p class="description">Um perfume robusto e elegante, perfeito para o dia a dia.</p>
-                <div class="product-actions">
-                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
-                </div>
-            </div>
-            <div class="product" data-id="2">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/200427-1200-800/3348901571432_02-highlight-md-edp.jpg?v=638836058392300000" alt="Miss Dior">
-                <h3>Miss Dior</h3>
-                <p class="price">R$ 1039,00</p>
-                <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
-                <div class="product-actions">
-                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
-                </div>
-            </div>
-            <div class="product" data-id="3">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
-                <h3>J'adore</h3>
-                <p class="price">R$ 1039,00</p>
-                <p class="description">Elegância atemporal, um clássico da perfumaria.</p>
-                <div class="product-actions">
-                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
-                </div>
-            </div>
-            <div class="product" data-id="4">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/200457-1200-800/3348901627375_02-highlight-md-bb.jpg?v=638836058911570000" alt="Miss Dior Blooming Bouquet">
-                <h3>MissDior Blooming Bouquet</h3>
-                <p class="price">R$ 915,00</p>
-                <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
-                <div class="product-actions">
-                    <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    <a href="https://shop.dior.com.br/miss-dior-blooming-bouquet/p?skuId=1543" class="btn view-more">Ver Mais</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="other-products">
-        <h2>Outros Produtos</h2>
-        <div class="products">
-            <div class="product" data-id="5">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/199149-1200-800/3348900378551_02-highlight-poison.jpg.jpg?v=638799921511700000" alt="Hypnotic Poison">
-                <h3>Hypnotic Poison</h3>
-                <p class="price">R$ 915,00</p>
-                <p class="description">Um perfume oriental arrebatador, incrivelmente sensual.</p>
-                <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-            </div>
-            <div class="product" data-id="6">
-                <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Gris Dior">
-                <h3>Gris Dior</h3>
-                <p class="price">R$ 3.199,00</p>
-                <p class="description">Faz uma declaração forte e reconhecível, sempre com elegância.</p>
-                <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-            </div>
-        </div>
-    </section>
 
     <footer>
         <div class="footer-content">
@@ -266,6 +312,23 @@
 
         // Carrinho de compras
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let discount = 0;
+        const DISCOUNT_CODE = 'THAEMILLY25';
+        const DISCOUNT_PERCENTAGE = 0.1; // 10%
+
+        // Verificar e aplicar modo salvo
+        function applySavedMode() {
+            const savedMode = localStorage.getItem('mode');
+            const modeIcon = document.getElementById('mode-icon');
+            
+            if (savedMode === 'light') {
+                document.body.classList.add('light-mode');
+                modeIcon.src = 'https://img.icons8.com/ios-filled/24/000000/sun.png';
+            } else {
+                document.body.classList.remove('light-mode');
+                modeIcon.src = 'https://img.icons8.com/ios-filled/24/000000/moon.png';
+            }
+        }
 
         // Atualizar contador do carrinho
         function updateCartCount() {
@@ -287,10 +350,157 @@
 
         // Fechar todos os modais
         function closeAllModals() {
-            modals.forEach(modal => {
+            document.querySelectorAll('.modal').forEach(modal => {
                 modal.style.display = 'none';
             });
             document.body.style.overflow = 'auto';
+        }
+
+        // Alternar modo claro/escuro (ícones corrigidos)
+        document.getElementById('toggle-mode').addEventListener('click', () => {
+            const modeIcon = document.getElementById('mode-icon');
+            
+            if (document.body.classList.contains('light-mode')) {
+                document.body.classList.remove('light-mode');
+                modeIcon.src = 'https://img.icons8.com/ios-filled/24/000000/moon.png';
+                localStorage.setItem('mode', 'dark');
+            } else {
+                document.body.classList.add('light-mode');
+                modeIcon.src = 'https://img.icons8.com/ios-filled/24/000000/sun.png';
+                localStorage.setItem('mode', 'light');
+            }
+        });
+
+        // Formatar valor para exibição
+        function formatCurrency(value) {
+            return 'R$ ' + value.toFixed(2).replace('.', ',');
+        }
+
+        // Renderizar itens do carrinho
+        function renderCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="empty-cart">Seu carrinho está vazio</p>';
+                updateTotals();
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p class="price">${formatCurrency(item.price)}</p>
+                        <div class="quantity-controls">
+                            <button class="btn quantity-btn minus" data-index="${index}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="btn quantity-btn plus" data-index="${index}">+</button>
+                        </div>
+                        <button class="btn remove-item" data-index="${index}">Remover</button>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+            });
+
+            // Adicionar event listeners
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    cart.splice(index, 1);
+                    saveCart();
+                });
+            });
+
+            document.querySelectorAll('.quantity-btn.minus').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity -= 1;
+                    } else {
+                        cart.splice(index, 1);
+                        // Se o carrinho ficar vazio, remove o desconto
+                        if (cart.length === 0) {
+                            discount = 0;
+                            document.getElementById('couponCode').value = '';
+                        }
+                    }
+                    saveCart();
+                });
+            });
+
+            document.querySelectorAll('.quantity-btn.plus').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    cart[index].quantity += 1;
+                    saveCart();
+                });
+            });
+
+            updateTotals();
+        }
+
+        // Atualizar totais
+        function updateTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const discountValue = subtotal * discount;
+            const total = subtotal - discountValue;
+
+            document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('total').textContent = formatCurrency(total);
+
+            const discountRow = document.getElementById('discountRow');
+            if (discount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('discount').textContent = '-' + formatCurrency(discountValue);
+            } else {
+                discountRow.style.display = 'none';
+            }
+        }
+
+        // Salvar carrinho no localStorage
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        // Aplicar cupom de desconto
+        document.getElementById('applyCoupon').addEventListener('click', function() {
+            const couponCode = document.getElementById('couponCode').value.trim();
+            if (couponCode === DISCOUNT_CODE) {
+                discount = DISCOUNT_PERCENTAGE;
+                updateTotals();
+                showModal('discountAppliedPopup');
+                setTimeout(() => {
+                    closeModal('discountAppliedPopup');
+                }, 1000);
+            } else if (couponCode === '') {
+                discount = 0;
+                updateTotals();
+                alert('Cupom removido.');
+            } else {
+                discount = 0;
+                updateTotals();
+                alert('Cupom inválido.');
+            }
+        });
+
+        // Alternar entre loja e carrinho
+        function toggleCartView(showCart) {
+            if (showCart) {
+                document.getElementById('storeContent').style.display = 'none';
+                document.getElementById('cartContent').style.display = 'block';
+                document.querySelector('nav.categories').style.display = 'none';
+                renderCartItems();
+            } else {
+                document.getElementById('storeContent').style.display = 'block';
+                document.getElementById('cartContent').style.display = 'none';
+                document.querySelector('nav.categories').style.display = 'block';
+            }
         }
 
         // Adicionar ao carrinho
@@ -318,6 +528,11 @@
                 // Mostrar popup de item adicionado
                 showModal('addedToCartPopup');
                 
+                // Fechar automaticamente após 2 segundos
+                setTimeout(() => {
+                    closeModal('addedToCartPopup');
+                }, 1000);
+                
                 // Mostrar popup de desconto aleatoriamente (20% de chance)
                 if (Math.random() < 0.2) {
                     setTimeout(() => {
@@ -339,8 +554,16 @@
             }
         });
 
-        // Botão continuar comprando
-        document.getElementById('continueShopping').addEventListener('click', closeAllModals);
+        // Link do carrinho no cabeçalho
+        document.getElementById('cartLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleCartView(true);
+        });
+
+        // Botão voltar para a loja
+        document.getElementById('backToStore').addEventListener('click', function() {
+            toggleCartView(false);
+        });
 
         // Inicializar contador do carrinho
         updateCartCount();
@@ -475,6 +698,29 @@
             auth.signOut();
         });
 
+        // Finalizar compra
+        document.getElementById('checkoutButton').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+            
+            // Mostrar popup de pedido realizado
+            showModal('orderCompletedPopup');
+            
+            // Limpar carrinho
+            cart = [];
+            discount = 0;
+            localStorage.removeItem('cart');
+            saveCart();
+            
+            // Voltar para a loja após 3 segundos
+            setTimeout(() => {
+                closeAllModals();
+                toggleCartView(false);
+            }, 3000);
+        });
+
         auth.onAuthStateChanged((user) => {
             if (user) {
                 loginButton.style.display = 'none';
@@ -488,9 +734,8 @@
             }
         });
 
-        document.getElementById('toggle-mode').addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
+        // Aplicar modo salvo ao carregar a página
+        applySavedMode();
 
         // Função de pesquisa
         function searchProducts() {

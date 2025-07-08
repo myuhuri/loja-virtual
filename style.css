@@ -874,3 +874,26 @@ body.light-mode .close-modal {
 .modal-content {
     animation: slideIn 0.3s ease forwards;
 }
+/* MODAIS TEMPORÁRIOS */
+.temporary-popup {
+    pointer-events: none;
+}
+
+.temporary-popup .modal-content {
+    pointer-events: auto;
+    animation: slideIn 0.3s ease forwards, fadeOut 0.5s ease 2s forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* ÍCONE DE MODO */
+body.light-mode .mode-toggle-container img {
+    filter: invert(0.8);
+}
+
+body:not(.light-mode) .mode-toggle-container img {
+    filter: invert(1);
+}
