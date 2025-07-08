@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             <nav class="categories">
                 <ul>
                     <li class="dropdown">
-                        <a href="#">Maquiagem</a>
+                        <a href="#" class="dropdown-toggle">Maquiagem</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Batom</a></li>
                             <li><a href="#">Paleta de Sombras</a></li>
@@ -31,7 +31,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#">Feminino</a>
+                        <a href="#" class="dropdown-toggle">Feminino</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Perfumes</a></li>
                             <li><a href="#">Cremes</a></li>
@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#">Masculino</a>
+                        <a href="#" class="dropdown-toggle">Masculino</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Perfumes</a></li>
                             <li><a href="#">Gel de Banho</a></li>
@@ -47,10 +47,10 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#">Cadastro</a>
+                        <a href="#" class="dropdown-toggle">Cadastro</a>
                         <ul class="dropdown-menu">
                             <li><a href="#" id="clientes-button">Clientes</a></li>
-                            <li><a href="#" id="produtos-button">Produto</a></li>
+                            <li><a href="#" id="produtos-button">Produtos</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -61,6 +61,7 @@
             <div class="cart-container">
                 <a href="carrinho.html" class="cart-button">
                     <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
+                    <span class="cart-count" id="cartCount">0</span>
                 </a>
             </div>
 
@@ -119,7 +120,7 @@
     <section class="featured-products">
         <h2>Mais Vendidos</h2>
         <div class="products">
-            <div class="product">
+            <div class="product" data-id="1">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
                 <h3>Sauvage</h3>
                 <p class="price">R$ 1225,00</p>
@@ -129,7 +130,7 @@
                     <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product" data-id="2">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/200427-1200-800/3348901571432_02-highlight-md-edp.jpg?v=638836058392300000" alt="Miss Dior">
                 <h3>Miss Dior</h3>
                 <p class="price">R$ 1039,00</p>
@@ -139,7 +140,7 @@
                     <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product" data-id="3">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
                 <h3>J'adore</h3>
                 <p class="price">R$ 1039,00</p>
@@ -149,9 +150,9 @@
                     <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product" data-id="4">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/200457-1200-800/3348901627375_02-highlight-md-bb.jpg?v=638836058911570000" alt="Miss Dior Blooming Bouquet">
-                <h3>Miss Dior Blooming Bouquet</h3>
+                <h3>MissDior Blooming Bouquet</h3>
                 <p class="price">R$ 915,00</p>
                 <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
                 <div class="product-actions">
@@ -165,14 +166,14 @@
     <section class="other-products">
         <h2>Outros Produtos</h2>
         <div class="products">
-            <div class="product">
+            <div class="product" data-id="5">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/199149-1200-800/3348900378551_02-highlight-poison.jpg.jpg?v=638799921511700000" alt="Hypnotic Poison">
                 <h3>Hypnotic Poison</h3>
                 <p class="price">R$ 915,00</p>
                 <p class="description">Um perfume oriental arrebatador, incrivelmente sensual.</p>
                 <button class="btn add-to-cart">Adicionar ao Carrinho</button>
             </div>
-            <div class="product">
+            <div class="product" data-id="6">
                 <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Gris Dior">
                 <h3>Gris Dior</h3>
                 <p class="price">R$ 3.199,00</p>
@@ -233,6 +234,70 @@
         const clientesForm = document.getElementById('clientesForm');
         const produtosForm = document.getElementById('produtosForm');
 
+        // Carrinho de compras
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Atualizar contador do carrinho
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Adicionar ao carrinho
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productElement = this.closest('.product');
+                const product = {
+                    id: productElement.dataset.id,
+                    name: productElement.querySelector('h3').textContent,
+                    price: parseFloat(productElement.querySelector('.price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.')),
+                    image: productElement.querySelector('img').src,
+                    quantity: 1
+                };
+
+                const existingItem = cart.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                window.location.href = 'carrinho.html';
+            });
+        });
+
+        // Inicializar contador do carrinho
+        updateCartCount();
+
+        // Dropdown menus
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const menu = this.nextElementSibling;
+                const isOpen = menu.style.display === 'block';
+                
+                // Fecha todos os outros menus
+                document.querySelectorAll('.dropdown-menu').forEach(m => {
+                    if (m !== menu) m.style.display = 'none';
+                });
+                
+                // Abre/fecha o menu atual
+                menu.style.display = isOpen ? 'none' : 'block';
+            });
+        });
+
+        // Fecha menus quando clicar fora
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+
+        // Restante do código de login/cadastro...
         loginButton.addEventListener('click', () => {
             loginPopup.style.display = 'block';
         });
@@ -266,7 +331,6 @@
             const endereco = document.getElementById('enderecoCliente').value;
             const telefone = document.getElementById('telefoneCliente').value;
             
-            // Salvar no Firebase
             database.ref('clientes').push({
                 nome: nome,
                 cpf: cpf,
@@ -288,7 +352,6 @@
             const idProduto = document.getElementById('idProduto').value;
             const categoria = document.getElementById('categoriaProduto').value;
             
-            // Salvar no Firebase
             database.ref('produtos').push({
                 nome: nome,
                 idProduto: idProduto,
@@ -371,7 +434,7 @@
             document.body.classList.toggle('light-mode');
         });
 
-        // Função real de pesquisa que filtra os produtos dinamicamente
+        // Função de pesquisa
         function searchProducts() {
             const input = document.getElementById('search').value.toLowerCase();
             const allProducts = document.querySelectorAll('.product');
@@ -387,35 +450,6 @@
                 }
             });
         }
-
-        // Dropdowns
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropdowns = document.querySelectorAll('.dropdown');
-
-            dropdowns.forEach(dropdown => {
-                const link = dropdown.querySelector('a');
-                const menu = dropdown.querySelector('.dropdown-menu');
-
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
-                        if (otherMenu !== menu) {
-                            otherMenu.style.display = 'none';
-                        }
-                    });
-
-                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-                });
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.dropdown')) {
-                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                        menu.style.display = 'none';
-                    });
-                }
-            });
-        });
     </script>
 </body>
 </html>
