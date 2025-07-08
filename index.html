@@ -74,9 +74,9 @@
     </header>
 
     <!-- POPUP DE LOGIN -->
-    <div id="loginPopup" style="display: none;">
-        <div class="login-content">
-            <button id="closePopup">&times;</button>
+    <div id="loginPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
             <h2>Login</h2>
             <form id="loginForm">
                 <input type="email" id="email" placeholder="E-mail" required>
@@ -89,9 +89,9 @@
     </div>
 
     <!-- POPUP DE CADASTRO DE CLIENTES -->
-    <div id="clientesPopup" style="display: none;">
-        <div class="login-content">
-            <button id="closeClientesPopup">&times;</button>
+    <div id="clientesPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
             <h2>Cadastro de Clientes</h2>
             <form id="clientesForm">
                 <input type="text" id="nomeCliente" placeholder="Nome completo" required>
@@ -104,9 +104,9 @@
     </div>
 
     <!-- POPUP DE CADASTRO DE PRODUTOS -->
-    <div id="produtosPopup" style="display: none;">
-        <div class="login-content">
-            <button id="closeProdutosPopup">&times;</button>
+    <div id="produtosPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
             <h2>Cadastro de Produtos</h2>
             <form id="produtosForm">
                 <input type="text" id="nomeProduto" placeholder="Nome do produto" required>
@@ -114,6 +114,42 @@
                 <input type="text" id="categoriaProduto" placeholder="Categoria" required>
                 <button type="submit" class="btn solid">Cadastrar Produto</button>
             </form>
+        </div>
+    </div>
+
+    <!-- POPUP DE ITEM ADICIONADO -->
+    <div id="addedToCartPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">✓</div>
+            <h2>Item Adicionado!</h2>
+            <p>O produto foi adicionado ao seu carrinho.</p>
+            <div class="popup-buttons">
+                <button class="btn" id="continueShopping">Continuar Comprando</button>
+                <a href="carrinho.html" class="btn solid">Ver Carrinho</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DE DESCONTO -->
+    <div id="discountPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">🎁</div>
+            <h2>Cupom de Desconto!</h2>
+            <p>Use o código <strong>THAEMILLY25</strong> para obter 10% de desconto em sua compra!</p>
+            <button class="btn solid close-modal">Ótimo, obrigado!</button>
+        </div>
+    </div>
+
+    <!-- POPUP DE PEDIDO REALIZADO -->
+    <div id="orderCompletedPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">✓</div>
+            <h2>Pedido Realizado!</h2>
+            <p>Obrigado por comprar na Dior Imports. Seu pedido foi processado com sucesso.</p>
+            <button class="btn solid close-modal">Fechar</button>
         </div>
     </div>
 
@@ -217,20 +253,14 @@
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
         const userGreeting = document.getElementById('userGreeting');
-        const loginPopup = document.getElementById('loginPopup');
-        const closePopup = document.getElementById('closePopup');
-        const loginForm = document.getElementById('loginForm');
-        const registerButton = document.getElementById('register-button');
-        const recoverPasswordButton = document.getElementById('recover-password-button');
-        const toggleMode = document.getElementById('toggle-mode');
+        
+        // Elementos do modal
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
         
         // Elementos do cadastro
         const clientesButton = document.getElementById('clientes-button');
         const produtosButton = document.getElementById('produtos-button');
-        const clientesPopup = document.getElementById('clientesPopup');
-        const produtosPopup = document.getElementById('produtosPopup');
-        const closeClientesPopup = document.getElementById('closeClientesPopup');
-        const closeProdutosPopup = document.getElementById('closeProdutosPopup');
         const clientesForm = document.getElementById('clientesForm');
         const produtosForm = document.getElementById('produtosForm');
 
@@ -241,6 +271,26 @@
         function updateCartCount() {
             const count = cart.reduce((total, item) => total + item.quantity, 0);
             document.getElementById('cartCount').textContent = count;
+        }
+
+        // Mostrar modal
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar todos os modais
+        function closeAllModals() {
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
         }
 
         // Adicionar ao carrinho
@@ -264,9 +314,33 @@
 
                 localStorage.setItem('cart', JSON.stringify(cart));
                 updateCartCount();
-                window.location.href = 'carrinho.html';
+                
+                // Mostrar popup de item adicionado
+                showModal('addedToCartPopup');
+                
+                // Mostrar popup de desconto aleatoriamente (20% de chance)
+                if (Math.random() < 0.2) {
+                    setTimeout(() => {
+                        showModal('discountPopup');
+                    }, 1500);
+                }
             });
         });
+
+        // Event listeners para modais
+        closeButtons.forEach(button => {
+            button.addEventListener('click', closeAllModals);
+        });
+
+        // Fechar modal quando clicar fora
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                closeAllModals();
+            }
+        });
+
+        // Botão continuar comprando
+        document.getElementById('continueShopping').addEventListener('click', closeAllModals);
 
         // Inicializar contador do carrinho
         updateCartCount();
@@ -297,31 +371,15 @@
             }
         });
 
-        // Restante do código de login/cadastro...
-        loginButton.addEventListener('click', () => {
-            loginPopup.style.display = 'block';
-        });
-
-        closePopup.addEventListener('click', () => {
-            loginPopup.style.display = 'none';
-        });
-
+        // Login e cadastro
+        loginButton.addEventListener('click', () => showModal('loginPopup'));
         clientesButton.addEventListener('click', (e) => {
             e.preventDefault();
-            clientesPopup.style.display = 'block';
+            showModal('clientesPopup');
         });
-
         produtosButton.addEventListener('click', (e) => {
             e.preventDefault();
-            produtosPopup.style.display = 'block';
-        });
-
-        closeClientesPopup.addEventListener('click', () => {
-            clientesPopup.style.display = 'none';
-        });
-
-        closeProdutosPopup.addEventListener('click', () => {
-            produtosPopup.style.display = 'none';
+            showModal('produtosPopup');
         });
 
         clientesForm.addEventListener('submit', (e) => {
@@ -340,7 +398,7 @@
             }).then(() => {
                 alert('Cliente cadastrado com sucesso!');
                 clientesForm.reset();
-                clientesPopup.style.display = 'none';
+                closeModal('clientesPopup');
             }).catch((error) => {
                 alert('Erro ao cadastrar cliente: ' + error.message);
             });
@@ -360,27 +418,27 @@
             }).then(() => {
                 alert('Produto cadastrado com sucesso!');
                 produtosForm.reset();
-                produtosPopup.style.display = 'none';
+                closeModal('produtosPopup');
             }).catch((error) => {
                 alert('Erro ao cadastrar produto: ' + error.message);
             });
         });
 
-        loginForm.addEventListener('submit', (e) => {
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             auth.signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    loginPopup.style.display = 'none';
-                    loginForm.reset();
+                    closeModal('loginPopup');
+                    document.getElementById('loginForm').reset();
                 })
                 .catch((error) => {
                     alert(error.message);
                 });
         });
 
-        registerButton.addEventListener('click', () => {
+        document.getElementById('register-button').addEventListener('click', () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             if (!email || !password) {
@@ -390,15 +448,15 @@
             auth.createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     alert('Conta criada com sucesso!');
-                    loginPopup.style.display = 'none';
-                    loginForm.reset();
+                    closeModal('loginPopup');
+                    document.getElementById('loginForm').reset();
                 })
                 .catch((error) => {
                     alert(error.message);
                 });
         });
 
-        recoverPasswordButton.addEventListener('click', () => {
+        document.getElementById('recover-password-button').addEventListener('click', () => {
             const email = document.getElementById('email').value;
             if (!email) {
                 alert('Por favor, insira seu e-mail para recuperar a senha.');
@@ -430,7 +488,7 @@
             }
         });
 
-        toggleMode.addEventListener('click', () => {
+        document.getElementById('toggle-mode').addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
         });
 

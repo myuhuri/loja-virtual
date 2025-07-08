@@ -49,11 +49,22 @@
         </div>
     </section>
 
+    <!-- POPUP DE PEDIDO REALIZADO -->
+    <div id="orderCompletedPopup" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">✓</div>
+            <h2>Pedido Realizado!</h2>
+            <p>Obrigado por comprar na Dior Imports. Seu pedido foi processado com sucesso.</p>
+            <button class="btn solid close-modal">Fechar</button>
+        </div>
+    </div>
+
     <script>
         // Recuperar carrinho do localStorage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let discount = 0;
-        const DISCOUNT_CODE = 'thaemilly25';
+        const DISCOUNT_CODE = 'THAEMILLY25';
         const DISCOUNT_PERCENTAGE = 0.1; // 10%
 
         // Atualizar contador do carrinho
@@ -64,8 +75,40 @@
 
         // Formatar valor para exibição
         function formatCurrency(value) {
-            return value.toFixed(2).replace('.', ',');
+            return 'R$ ' + value.toFixed(2).replace('.', ',');
         }
+
+        // Mostrar modal
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar todos os modais
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners para modais
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', closeAllModals);
+        });
+
+        // Fechar modal quando clicar fora
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                closeAllModals();
+            }
+        });
 
         // Renderizar itens do carrinho
         function renderCartItems() {
@@ -85,7 +128,7 @@
                     <img src="${item.image}" alt="${item.name}">
                     <div class="cart-item-info">
                         <h3>${item.name}</h3>
-                        <p class="price">R$ ${formatCurrency(item.price)}</p>
+                        <p class="price">${formatCurrency(item.price)}</p>
                         <div class="quantity-controls">
                             <button class="btn quantity-btn minus" data-index="${index}">-</button>
                             <span class="quantity">${item.quantity}</span>
@@ -113,8 +156,8 @@
                         cart[index].quantity -= 1;
                     } else {
                         cart.splice(index, 1);
-                    // Se o carrinho ficar vazio, remove o desconto
-                    if (cart.length === 0) {
+                        // Se o carrinho ficar vazio, remove o desconto
+                        if (cart.length === 0) {
                             discount = 0;
                             document.getElementById('couponCode').value = '';
                         }
@@ -140,13 +183,13 @@
             const discountValue = subtotal * discount;
             const total = subtotal - discountValue;
 
-            document.getElementById('subtotal').textContent = `R$ ${formatCurrency(subtotal)}`;
-            document.getElementById('total').textContent = `R$ ${formatCurrency(total)}`;
+            document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('total').textContent = formatCurrency(total);
 
             const discountRow = document.getElementById('discountRow');
             if (discount > 0) {
                 discountRow.style.display = 'flex';
-                document.getElementById('discount').textContent = `-R$ ${formatCurrency(discountValue)}`;
+                document.getElementById('discount').textContent = '-' + formatCurrency(discountValue);
             } else {
                 discountRow.style.display = 'none';
             }
@@ -183,7 +226,11 @@
                 alert('Seu carrinho está vazio!');
                 return;
             }
-            alert('Compra finalizada com sucesso! Obrigado por comprar na Dior Imports.');
+            
+            // Mostrar popup de pedido realizado
+            showModal('orderCompletedPopup');
+            
+            // Limpar carrinho
             cart = [];
             discount = 0;
             localStorage.removeItem('cart');
