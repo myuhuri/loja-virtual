@@ -1,5 +1,3 @@
-/* style.css */
-
 * {
     margin: 0;
     padding: 0;
@@ -104,7 +102,7 @@ body.light-mode .search-container input {
 }
 
 .store-name h1 {
-    font-family: 'OPTINaval', sans-serif;
+    font-family: 'Anton', sans-serif;
     font-size: 2.5em;
     color: #40615a;
     letter-spacing: 2px;
@@ -628,12 +626,6 @@ a {
     text-decoration: none;
 }
 
-/* FONTE */
-@font-face {
-    font-family: 'OPTINaval';
-    src: url('fonts/OPTINaval.ttf') format('truetype');
-}
-
 /* RESPONSIVO */
 @media (max-width: 768px) {
     .header-container {
@@ -878,5 +870,69 @@ body:not(.light-mode) .mode-toggle-container img {
     to { 
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Estilos para pop-ups de confirmação */
+.confirmation-popup .modal-content {
+    max-width: 500px;
+    text-align: center;
+}
+
+.confirmation-popup .popup-buttons {
+    justify-content: center;
+}
+
+.confirmation-popup .btn.confirm {
+    background-color: #ff4d4d;
+}
+
+.confirmation-popup .btn.confirm:hover {
+    background-color: #cc0000;
+}
+
+.confirmation-popup .btn.cancel {
+    background-color: #40615a;
+}
+
+.confirmation-popup .btn.cancel:hover {
+    background-color: #354d42;
+}
+
+/* Melhorias para mobile */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 20px 15px;
+        width: 95%;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+    }
+    
+    .popup-buttons {
+        flex-direction: column;
+    }
+    
+    .cart-item {
+        flex-direction: column;
+    }
+    
+    .cart-item img {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+    
+    .summary-details {
+        width: 100%;
+    }
+    
+    .coupon-container {
+        flex-direction: column;
+    }
+    
+    .coupon-container input {
+        width: 100%;
     }
 }

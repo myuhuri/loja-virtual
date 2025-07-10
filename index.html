@@ -19,6 +19,20 @@
             <div class="search-container">
                 <input type="text" placeholder="Pesquisar produtos..." id="search" onkeyup="searchProducts()">
             </div>
+            <div class="store-name">
+                <h1>Dior Imports</h1>
+            </div>
+            <div class="cart-container">
+                <a href="#" id="cartLink" class="cart-button">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+            </div>
+            <div class="mode-toggle-container">
+                <button id="toggle-mode" class="btn">
+                    <img id="mode-icon" src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">
+                </button>
+            </div>
             <nav class="categories">
                 <ul>
                     <li class="dropdown">
@@ -55,21 +69,6 @@
                     </li>
                 </ul>
             </nav>
-            <div class="store-name">
-                <h1>Dior Imports</h1>
-            </div>
-            <div class="cart-container">
-                <a href="#" id="cartLink" class="cart-button">
-                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-            </div>
-
-            <div class="mode-toggle-container">
-                <button id="toggle-mode" class="btn">
-                    <img id="mode-icon" src="https://img.icons8.com/ios-filled/24/000000/sun.png" alt="Modo Claro">
-                </button>
-            </div>
         </div>
     </header>
 
@@ -236,6 +235,52 @@
         </div>
     </div>
 
+    <!-- POPUP DE CONFIRMAÇÃO DE EXCLUSÃO DE CLIENTE -->
+    <div id="confirmDeleteClientePopup" class="modal confirmation-popup">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">⚠️</div>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este cliente?</p>
+            <div class="popup-buttons">
+                <button class="btn confirm" id="confirmDeleteCliente">Excluir</button>
+                <button class="btn cancel close-modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DE CONFIRMAÇÃO DE EXCLUSÃO DE PRODUTO -->
+    <div id="confirmDeleteProdutoPopup" class="modal confirmation-popup">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="popup-icon">⚠️</div>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este produto?</p>
+            <div class="popup-buttons">
+                <button class="btn confirm" id="confirmDeleteProduto">Excluir</button>
+                <button class="btn cancel close-modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DE SUCESSO AO SALVAR CLIENTE -->
+    <div id="successClientePopup" class="modal temporary-popup">
+        <div class="modal-content">
+            <div class="popup-icon">✓</div>
+            <h2>Sucesso!</h2>
+            <p id="successClienteMessage">Cliente salvo com sucesso!</p>
+        </div>
+    </div>
+
+    <!-- POPUP DE SUCESSO AO SALVAR PRODUTO -->
+    <div id="successProdutoPopup" class="modal temporary-popup">
+        <div class="modal-content">
+            <div class="popup-icon">✓</div>
+            <h2>Sucesso!</h2>
+            <p id="successProdutoMessage">Produto salvo com sucesso!</p>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="social-media">
@@ -286,6 +331,10 @@
         let discount = 0;
         const DISCOUNT_CODE = 'THAEMILLY25';
         const DISCOUNT_PERCENTAGE = 0.1; // 10%
+
+        // Variáveis para controle de exclusão
+        let clienteToDelete = null;
+        let produtoToDelete = null;
 
         // Verificar e aplicar modo salvo
         function applySavedMode() {
@@ -474,13 +523,36 @@
             } else if (couponCode === '') {
                 discount = 0;
                 updateTotals();
-                alert('Cupom removido.');
+                showSuccessMessage('Cupom removido.');
             } else {
                 discount = 0;
                 updateTotals();
-                alert('Cupom inválido.');
+                showSuccessMessage('Cupom inválido.');
             }
         });
+
+        // Mostrar mensagem de sucesso
+        function showSuccessMessage(message) {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'temporary-message';
+            successMessage.textContent = message;
+            successMessage.style.position = 'fixed';
+            successMessage.style.bottom = '20px';
+            successMessage.style.left = '50%';
+            successMessage.style.transform = 'translateX(-50%)';
+            successMessage.style.backgroundColor = '#40615a';
+            successMessage.style.color = 'white';
+            successMessage.style.padding = '10px 20px';
+            successMessage.style.borderRadius = '8px';
+            successMessage.style.zIndex = '9999';
+            successMessage.style.animation = 'fadeIn 0.3s, fadeOut 0.3s 2s forwards';
+            
+            document.body.appendChild(successMessage);
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 2000);
+        }
 
         // Alternar entre loja e carrinho
         function toggleCartView(showCart) {
@@ -576,24 +648,32 @@
                 // Atualizar cliente existente
                 database.ref('clientes/' + key).update(cliente)
                     .then(() => {
-                        alert('Cliente atualizado com sucesso!');
+                        document.getElementById('successClienteMessage').textContent = 'Cliente atualizado com sucesso!';
+                        showModal('successClientePopup');
+                        setTimeout(() => {
+                            closeModal('successClientePopup');
+                        }, 1000);
                         clientesForm.reset();
                         document.getElementById('clienteKey').value = '';
                         loadClientes();
                     })
                     .catch((error) => {
-                        alert('Erro ao atualizar cliente: ' + error.message);
+                        showSuccessMessage('Erro ao atualizar cliente: ' + error.message);
                     });
             } else {
                 // Criar novo cliente
                 database.ref('clientes').push(cliente)
                     .then(() => {
-                        alert('Cliente cadastrado com sucesso!');
+                        document.getElementById('successClienteMessage').textContent = 'Cliente cadastrado com sucesso!';
+                        showModal('successClientePopup');
+                        setTimeout(() => {
+                            closeModal('successClientePopup');
+                        }, 1000);
                         clientesForm.reset();
                         loadClientes();
                     })
                     .catch((error) => {
-                        alert('Erro ao cadastrar cliente: ' + error.message);
+                        showSuccessMessage('Erro ao cadastrar cliente: ' + error.message);
                     });
             }
         });
@@ -616,24 +696,32 @@
                 // Atualizar produto existente
                 database.ref('produtos/' + key).update(produto)
                     .then(() => {
-                        alert('Produto atualizado com sucesso!');
+                        document.getElementById('successProdutoMessage').textContent = 'Produto atualizado com sucesso!';
+                        showModal('successProdutoPopup');
+                        setTimeout(() => {
+                            closeModal('successProdutoPopup');
+                        }, 1000);
                         produtosForm.reset();
                         document.getElementById('produtoKey').value = '';
                         loadProdutos();
                     })
                     .catch((error) => {
-                        alert('Erro ao atualizar produto: ' + error.message);
+                        showSuccessMessage('Erro ao atualizar produto: ' + error.message);
                     });
             } else {
                 // Criar novo produto
                 database.ref('produtos').push(produto)
                     .then(() => {
-                        alert('Produto cadastrado com sucesso!');
+                        document.getElementById('successProdutoMessage').textContent = 'Produto cadastrado com sucesso!';
+                        showModal('successProdutoPopup');
+                        setTimeout(() => {
+                            closeModal('successProdutoPopup');
+                        }, 1000);
                         produtosForm.reset();
                         loadProdutos();
                     })
                     .catch((error) => {
-                        alert('Erro ao cadastrar produto: ' + error.message);
+                        showSuccessMessage('Erro ao cadastrar produto: ' + error.message);
                     });
             }
         });
@@ -689,17 +777,8 @@
                 // Adicionar event listeners para exclusão
                 document.querySelectorAll('.delete-cliente').forEach(button => {
                     button.addEventListener('click', function() {
-                        if (confirm('Tem certeza que deseja excluir este cliente?')) {
-                            const key = this.dataset.key;
-                            database.ref('clientes/' + key).remove()
-                                .then(() => {
-                                    alert('Cliente excluído com sucesso!');
-                                    loadClientes();
-                                })
-                                .catch((error) => {
-                                    alert('Erro ao excluir cliente: ' + error.message);
-                                });
-                        }
+                        clienteToDelete = this.dataset.key;
+                        showModal('confirmDeleteClientePopup');
                     });
                 });
             });
@@ -757,21 +836,44 @@
                 // Adicionar event listeners para exclusão
                 document.querySelectorAll('.delete-produto').forEach(button => {
                     button.addEventListener('click', function() {
-                        if (confirm('Tem certeza que deseja excluir este produto?')) {
-                            const key = this.dataset.key;
-                            database.ref('produtos/' + key).remove()
-                                .then(() => {
-                                    alert('Produto excluído com sucesso!');
-                                    loadProdutos();
-                                })
-                                .catch((error) => {
-                                    alert('Erro ao excluir produto: ' + error.message);
-                                });
-                        }
+                        produtoToDelete = this.dataset.key;
+                        showModal('confirmDeleteProdutoPopup');
                     });
                 });
             });
         }
+
+        // Confirmar exclusão de cliente
+        document.getElementById('confirmDeleteCliente').addEventListener('click', function() {
+            if (clienteToDelete) {
+                database.ref('clientes/' + clienteToDelete).remove()
+                    .then(() => {
+                        showSuccessMessage('Cliente excluído com sucesso!');
+                        closeModal('confirmDeleteClientePopup');
+                        loadClientes();
+                    })
+                    .catch((error) => {
+                        showSuccessMessage('Erro ao excluir cliente: ' + error.message);
+                    });
+            }
+            clienteToDelete = null;
+        });
+
+        // Confirmar exclusão de produto
+        document.getElementById('confirmDeleteProduto').addEventListener('click', function() {
+            if (produtoToDelete) {
+                database.ref('produtos/' + produtoToDelete).remove()
+                    .then(() => {
+                        showSuccessMessage('Produto excluído com sucesso!');
+                        closeModal('confirmDeleteProdutoPopup');
+                        loadProdutos();
+                    })
+                    .catch((error) => {
+                        showSuccessMessage('Erro ao excluir produto: ' + error.message);
+                    });
+            }
+            produtoToDelete = null;
+        });
 
         // Carregar produtos na loja
         function loadStoreProducts() {
@@ -892,7 +994,7 @@
                     document.getElementById('loginForm').reset();
                 })
                 .catch((error) => {
-                    alert(error.message);
+                    showSuccessMessage(error.message);
                 });
         });
 
@@ -901,17 +1003,17 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             if (!email || !password) {
-                alert('Por favor, preencha todos os campos para se registrar.');
+                showSuccessMessage('Por favor, preencha todos os campos para se registrar.');
                 return;
             }
             auth.createUserWithEmailAndPassword(email, password)
                 .then(() => {
-                    alert('Conta criada com sucesso!');
+                    showSuccessMessage('Conta criada com sucesso!');
                     closeModal('loginPopup');
                     document.getElementById('loginForm').reset();
                 })
                 .catch((error) => {
-                    alert(error.message);
+                    showSuccessMessage(error.message);
                 });
         });
 
@@ -919,15 +1021,15 @@
         document.getElementById('recover-password-button').addEventListener('click', () => {
             const email = document.getElementById('email').value;
             if (!email) {
-                alert('Por favor, insira seu e-mail para recuperar a senha.');
+                showSuccessMessage('Por favor, insira seu e-mail para recuperar a senha.');
                 return;
             }
             auth.sendPasswordResetEmail(email)
                 .then(() => {
-                    alert('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
+                    showSuccessMessage('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
                 })
                 .catch((error) => {
-                    alert(error.message);
+                    showSuccessMessage(error.message);
                 });
         });
 
@@ -939,7 +1041,7 @@
         // Finalizar compra
         document.getElementById('checkoutButton').addEventListener('click', function() {
             if (cart.length === 0) {
-                alert('Seu carrinho está vazio!');
+                showSuccessMessage('Seu carrinho está vazio!');
                 return;
             }
             
@@ -983,15 +1085,25 @@
 
         // Event listeners para modais
         closeButtons.forEach(button => {
-            button.addEventListener('click', closeAllModals);
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                closeModal(modal.id);
+            });
         });
 
         // Fechar modal quando clicar fora
         window.addEventListener('click', (event) => {
             if (event.target.classList.contains('modal')) {
-                closeAllModals();
+                closeModal(event.target.id);
             }
         });
+
+        // Mostrar popup de desconto após 5 segundos
+        setTimeout(() => {
+            if (cart.length > 0 && discount === 0) {
+                showModal('discountPopup');
+            }
+        }, 5000);
     </script>
 </body>
 </html>
