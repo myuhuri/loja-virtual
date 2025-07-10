@@ -78,68 +78,9 @@
         <!-- Conteúdo da Loja -->
         <section id="storeContent">
             <section class="featured-products">
-                <h2>Mais Vendidos</h2>
-                <div class="products">
-                    <div class="product" data-id="1">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/196323-1200-800/3348901321129_02-highlight-sauvage-edt.jpg?v=638786829193270000" alt="Sauvage Eau de Toilette">
-                        <h3>Sauvage</h3>
-                        <p class="price">R$ 1225,00</p>
-                        <p class="description">Um perfume robusto e elegante, perfeito para o dia a dia.</p>
-                        <div class="product-actions">
-                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                            <a href="https://shop.dior.com.br/sauvage-eau-de-parfum/p?skuId=64" class="btn view-more">Ver Mais</a>
-                        </div>
-                    </div>
-                    <div class="product" data-id="2">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/200427-1200-800/3348901571432_02-highlight-md-edp.jpg?v=638836058392300000" alt="Miss Dior">
-                        <h3>Miss Dior</h3>
-                        <p class="price">R$ 1039,00</p>
-                        <p class="description">Delicado e sofisticado, ideal para ocasiões especiais.</p>
-                        <div class="product-actions">
-                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                            <a href="https://shop.dior.com.br/new-miss-dior-eau-de-parfum/p?skuId=798" class="btn view-more">Ver Mais</a>
-                        </div>
-                    </div>
-                    <div class="product" data-id="3">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/198944-1200-800/3348901738224_02-highlight-jadore.jpg?v=638799843681300000" alt="J'adore">
-                        <h3>J'adore</h3>
-                        <p class="price">R$ 1039,00</p>
-                        <p class="description">Elegância atemporal, um clássico da perfumaria.</p>
-                        <div class="product-actions">
-                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                            <a href="https://shop.dior.com.br/jadore-eau-de-parfum/p?skuId=2511" class="btn view-more">Ver Mais</a>
-                        </div>
-                    </div>
-                    <div class="product" data-id="4">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/200457-1200-800/3348901627375_02-highlight-md-bb.jpg?v=638836058911570000" alt="Miss Dior Blooming Bouquet">
-                        <h3>MissDior Blooming Bouquet</h3>
-                        <p class="price">R$ 915,00</p>
-                        <p class="description">Flores frescas e suaves, um perfume delicado para o verão.</p>
-                        <div class="product-actions">
-                            <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                            <a href="https://shop.dior.com.br/miss-dior-blooming-bouquet/p?skuId=1543" class="btn view-more">Ver Mais</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="other-products">
-                <h2>Outros Produtos</h2>
-                <div class="products">
-                    <div class="product" data-id="5">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/199149-1200-800/3348900378551_02-highlight-poison.jpg.jpg?v=638799921511700000" alt="Hypnotic Poison">
-                        <h3>Hypnotic Poison</h3>
-                        <p class="price">R$ 915,00</p>
-                        <p class="description">Um perfume oriental arrebatador, incrivelmente sensual.</p>
-                        <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                    <div class="product" data-id="6">
-                        <img src="https://lojadior.vtexassets.com/arquivos/ids/199166-1200-800/3348901654395_02-highlight-LCP.jpg.jpg?v=638802484923500000" alt="Gris Dior">
-                        <h3>Gris Dior</h3>
-                        <p class="price">R$ 3.199,00</p>
-                        <p class="description">Faz uma declaração forte e reconhecível, sempre com elegância.</p>
-                        <button class="btn add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
+                <h2>Produtos</h2>
+                <div class="products" id="productsContainer">
+                    <!-- Produtos serão carregados dinamicamente aqui -->
                 </div>
             </section>
         </section>
@@ -202,12 +143,26 @@
             <button class="close-modal">&times;</button>
             <h2>Cadastro de Clientes</h2>
             <form id="clientesForm">
+                <input type="hidden" id="clienteKey">
                 <input type="text" id="nomeCliente" placeholder="Nome completo" required>
                 <input type="text" id="cpfCliente" placeholder="CPF" required>
+                <input type="email" id="emailCliente" placeholder="E-mail" required>
                 <input type="text" id="enderecoCliente" placeholder="Endereço" required>
                 <input type="tel" id="telefoneCliente" placeholder="Telefone" required>
-                <button type="submit" class="btn solid">Cadastrar Cliente</button>
+                <div class="form-buttons">
+                    <button type="submit" class="btn solid">Salvar</button>
+                    <button type="button" id="cancelarCliente" class="btn clear">Cancelar</button>
+                </div>
             </form>
+            <div class="clientes-list-container">
+                <h3>Clientes Cadastrados</h3>
+                <div class="search-container">
+                    <input type="text" id="searchClientes" placeholder="Pesquisar clientes..." onkeyup="searchClientes()">
+                </div>
+                <div id="clientesList" class="clientes-list">
+                    <!-- Lista de clientes será carregada aqui -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -217,11 +172,27 @@
             <button class="close-modal">&times;</button>
             <h2>Cadastro de Produtos</h2>
             <form id="produtosForm">
+                <input type="hidden" id="produtoKey">
                 <input type="text" id="nomeProduto" placeholder="Nome do produto" required>
                 <input type="text" id="idProduto" placeholder="ID do produto" required>
+                <input type="number" id="precoProduto" placeholder="Preço" step="0.01" required>
                 <input type="text" id="categoriaProduto" placeholder="Categoria" required>
-                <button type="submit" class="btn solid">Cadastrar Produto</button>
+                <input type="text" id="descricaoProduto" placeholder="Descrição">
+                <input type="text" id="imagemProduto" placeholder="URL da imagem">
+                <div class="form-buttons">
+                    <button type="submit" class="btn solid">Salvar</button>
+                    <button type="button" id="cancelarProduto" class="btn clear">Cancelar</button>
+                </div>
             </form>
+            <div class="produtos-list-container">
+                <h3>Produtos Cadastrados</h3>
+                <div class="search-container">
+                    <input type="text" id="searchProdutos" placeholder="Pesquisar produtos..." onkeyup="searchProdutos()">
+                </div>
+                <div id="produtosList" class="produtos-list">
+                    <!-- Lista de produtos será carregada aqui -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -340,12 +311,28 @@
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
             document.body.style.overflow = 'hidden';
+            
+            // Carregar dados quando o modal é aberto
+            if (modalId === 'clientesPopup') {
+                loadClientes();
+            } else if (modalId === 'produtosPopup') {
+                loadProdutos();
+            }
         }
 
         // Fechar modal
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
+            
+            // Limpar formulários quando o modal é fechado
+            if (modalId === 'clientesPopup') {
+                clientesForm.reset();
+                document.getElementById('clienteKey').value = '';
+            } else if (modalId === 'produtosPopup') {
+                produtosForm.reset();
+                document.getElementById('produtoKey').value = '';
+            }
         }
 
         // Fechar todos os modais
@@ -354,9 +341,15 @@
                 modal.style.display = 'none';
             });
             document.body.style.overflow = 'auto';
+            
+            // Limpar formulários
+            clientesForm.reset();
+            produtosForm.reset();
+            document.getElementById('clienteKey').value = '';
+            document.getElementById('produtoKey').value = '';
         }
 
-        // Alternar modo claro/escuro (ícones corrigidos)
+        // Alternar modo claro/escuro
         document.getElementById('toggle-mode').addEventListener('click', () => {
             const modeIcon = document.getElementById('mode-icon');
             
@@ -503,57 +496,6 @@
             }
         }
 
-        // Adicionar ao carrinho
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const productElement = this.closest('.product');
-                const product = {
-                    id: productElement.dataset.id,
-                    name: productElement.querySelector('h3').textContent,
-                    price: parseFloat(productElement.querySelector('.price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.')),
-                    image: productElement.querySelector('img').src,
-                    quantity: 1
-                };
-
-                const existingItem = cart.find(item => item.id === product.id);
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push(product);
-                }
-
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartCount();
-                
-                // Mostrar popup de item adicionado
-                showModal('addedToCartPopup');
-                
-                // Fechar automaticamente após 2 segundos
-                setTimeout(() => {
-                    closeModal('addedToCartPopup');
-                }, 1000);
-                
-                // Mostrar popup de desconto aleatoriamente (20% de chance)
-                if (Math.random() < 0.2) {
-                    setTimeout(() => {
-                        showModal('discountPopup');
-                    }, 1500);
-                }
-            });
-        });
-
-        // Event listeners para modais
-        closeButtons.forEach(button => {
-            button.addEventListener('click', closeAllModals);
-        });
-
-        // Fechar modal quando clicar fora
-        window.addEventListener('click', (event) => {
-            if (event.target.classList.contains('modal')) {
-                closeAllModals();
-            }
-        });
-
         // Link do carrinho no cabeçalho
         document.getElementById('cartLink').addEventListener('click', function(e) {
             e.preventDefault();
@@ -605,48 +547,341 @@
             showModal('produtosPopup');
         });
 
+        // Cancelar cadastro de cliente
+        document.getElementById('cancelarCliente').addEventListener('click', () => {
+            clientesForm.reset();
+            document.getElementById('clienteKey').value = '';
+        });
+
+        // Cancelar cadastro de produto
+        document.getElementById('cancelarProduto').addEventListener('click', () => {
+            produtosForm.reset();
+            document.getElementById('produtoKey').value = '';
+        });
+
+        // Formulário de clientes
         clientesForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const nome = document.getElementById('nomeCliente').value;
-            const cpf = document.getElementById('cpfCliente').value;
-            const endereco = document.getElementById('enderecoCliente').value;
-            const telefone = document.getElementById('telefoneCliente').value;
-            
-            database.ref('clientes').push({
-                nome: nome,
-                cpf: cpf,
-                endereco: endereco,
-                telefone: telefone,
+            const key = document.getElementById('clienteKey').value;
+            const cliente = {
+                nome: document.getElementById('nomeCliente').value,
+                cpf: document.getElementById('cpfCliente').value,
+                email: document.getElementById('emailCliente').value,
+                endereco: document.getElementById('enderecoCliente').value,
+                telefone: document.getElementById('telefoneCliente').value,
                 timestamp: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                alert('Cliente cadastrado com sucesso!');
-                clientesForm.reset();
-                closeModal('clientesPopup');
-            }).catch((error) => {
-                alert('Erro ao cadastrar cliente: ' + error.message);
-            });
+            };
+
+            if (key) {
+                // Atualizar cliente existente
+                database.ref('clientes/' + key).update(cliente)
+                    .then(() => {
+                        alert('Cliente atualizado com sucesso!');
+                        clientesForm.reset();
+                        document.getElementById('clienteKey').value = '';
+                        loadClientes();
+                    })
+                    .catch((error) => {
+                        alert('Erro ao atualizar cliente: ' + error.message);
+                    });
+            } else {
+                // Criar novo cliente
+                database.ref('clientes').push(cliente)
+                    .then(() => {
+                        alert('Cliente cadastrado com sucesso!');
+                        clientesForm.reset();
+                        loadClientes();
+                    })
+                    .catch((error) => {
+                        alert('Erro ao cadastrar cliente: ' + error.message);
+                    });
+            }
         });
 
+        // Formulário de produtos
         produtosForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const nome = document.getElementById('nomeProduto').value;
-            const idProduto = document.getElementById('idProduto').value;
-            const categoria = document.getElementById('categoriaProduto').value;
-            
-            database.ref('produtos').push({
-                nome: nome,
-                idProduto: idProduto,
-                categoria: categoria,
+            const key = document.getElementById('produtoKey').value;
+            const produto = {
+                nome: document.getElementById('nomeProduto').value,
+                idProduto: document.getElementById('idProduto').value,
+                preco: parseFloat(document.getElementById('precoProduto').value),
+                categoria: document.getElementById('categoriaProduto').value,
+                descricao: document.getElementById('descricaoProduto').value,
+                imagem: document.getElementById('imagemProduto').value,
                 timestamp: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                alert('Produto cadastrado com sucesso!');
-                produtosForm.reset();
-                closeModal('produtosPopup');
-            }).catch((error) => {
-                alert('Erro ao cadastrar produto: ' + error.message);
-            });
+            };
+
+            if (key) {
+                // Atualizar produto existente
+                database.ref('produtos/' + key).update(produto)
+                    .then(() => {
+                        alert('Produto atualizado com sucesso!');
+                        produtosForm.reset();
+                        document.getElementById('produtoKey').value = '';
+                        loadProdutos();
+                    })
+                    .catch((error) => {
+                        alert('Erro ao atualizar produto: ' + error.message);
+                    });
+            } else {
+                // Criar novo produto
+                database.ref('produtos').push(produto)
+                    .then(() => {
+                        alert('Produto cadastrado com sucesso!');
+                        produtosForm.reset();
+                        loadProdutos();
+                    })
+                    .catch((error) => {
+                        alert('Erro ao cadastrar produto: ' + error.message);
+                    });
+            }
         });
 
+        // Carregar clientes
+        function loadClientes() {
+            const clientesList = document.getElementById('clientesList');
+            clientesList.innerHTML = '<p>Carregando clientes...</p>';
+
+            database.ref('clientes').once('value', (snapshot) => {
+                clientesList.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    clientesList.innerHTML = '<p>Nenhum cliente cadastrado.</p>';
+                    return;
+                }
+
+                snapshot.forEach((childSnapshot) => {
+                    const cliente = childSnapshot.val();
+                    const clienteElement = document.createElement('div');
+                    clienteElement.className = 'cliente-item';
+                    clienteElement.innerHTML = `
+                        <div class="cliente-info">
+                            <h4>${cliente.nome}</h4>
+                            <p>CPF: ${cliente.cpf}</p>
+                            <p>E-mail: ${cliente.email}</p>
+                            <p>Telefone: ${cliente.telefone}</p>
+                        </div>
+                        <div class="cliente-actions">
+                            <button class="btn edit-cliente" data-key="${childSnapshot.key}">Editar</button>
+                            <button class="btn delete-cliente" data-key="${childSnapshot.key}">Excluir</button>
+                        </div>
+                    `;
+                    clientesList.appendChild(clienteElement);
+                });
+
+                // Adicionar event listeners para edição
+                document.querySelectorAll('.edit-cliente').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const key = this.dataset.key;
+                        database.ref('clientes/' + key).once('value', (snapshot) => {
+                            const cliente = snapshot.val();
+                            document.getElementById('clienteKey').value = key;
+                            document.getElementById('nomeCliente').value = cliente.nome;
+                            document.getElementById('cpfCliente').value = cliente.cpf;
+                            document.getElementById('emailCliente').value = cliente.email;
+                            document.getElementById('enderecoCliente').value = cliente.endereco;
+                            document.getElementById('telefoneCliente').value = cliente.telefone;
+                        });
+                    });
+                });
+
+                // Adicionar event listeners para exclusão
+                document.querySelectorAll('.delete-cliente').forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (confirm('Tem certeza que deseja excluir este cliente?')) {
+                            const key = this.dataset.key;
+                            database.ref('clientes/' + key).remove()
+                                .then(() => {
+                                    alert('Cliente excluído com sucesso!');
+                                    loadClientes();
+                                })
+                                .catch((error) => {
+                                    alert('Erro ao excluir cliente: ' + error.message);
+                                });
+                        }
+                    });
+                });
+            });
+        }
+
+        // Carregar produtos
+        function loadProdutos() {
+            const produtosList = document.getElementById('produtosList');
+            produtosList.innerHTML = '<p>Carregando produtos...</p>';
+
+            database.ref('produtos').once('value', (snapshot) => {
+                produtosList.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    produtosList.innerHTML = '<p>Nenhum produto cadastrado.</p>';
+                    return;
+                }
+
+                snapshot.forEach((childSnapshot) => {
+                    const produto = childSnapshot.val();
+                    const produtoElement = document.createElement('div');
+                    produtoElement.className = 'produto-item';
+                    produtoElement.innerHTML = `
+                        <div class="produto-info">
+                            <h4>${produto.nome}</h4>
+                            <p>ID: ${produto.idProduto}</p>
+                            <p>Preço: ${formatCurrency(produto.preco)}</p>
+                            <p>Categoria: ${produto.categoria}</p>
+                        </div>
+                        <div class="produto-actions">
+                            <button class="btn edit-produto" data-key="${childSnapshot.key}">Editar</button>
+                            <button class="btn delete-produto" data-key="${childSnapshot.key}">Excluir</button>
+                        </div>
+                    `;
+                    produtosList.appendChild(produtoElement);
+                });
+
+                // Adicionar event listeners para edição
+                document.querySelectorAll('.edit-produto').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const key = this.dataset.key;
+                        database.ref('produtos/' + key).once('value', (snapshot) => {
+                            const produto = snapshot.val();
+                            document.getElementById('produtoKey').value = key;
+                            document.getElementById('nomeProduto').value = produto.nome;
+                            document.getElementById('idProduto').value = produto.idProduto;
+                            document.getElementById('precoProduto').value = produto.preco;
+                            document.getElementById('categoriaProduto').value = produto.categoria;
+                            document.getElementById('descricaoProduto').value = produto.descricao || '';
+                            document.getElementById('imagemProduto').value = produto.imagem || '';
+                        });
+                    });
+                });
+
+                // Adicionar event listeners para exclusão
+                document.querySelectorAll('.delete-produto').forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (confirm('Tem certeza que deseja excluir este produto?')) {
+                            const key = this.dataset.key;
+                            database.ref('produtos/' + key).remove()
+                                .then(() => {
+                                    alert('Produto excluído com sucesso!');
+                                    loadProdutos();
+                                })
+                                .catch((error) => {
+                                    alert('Erro ao excluir produto: ' + error.message);
+                                });
+                        }
+                    });
+                });
+            });
+        }
+
+        // Carregar produtos na loja
+        function loadStoreProducts() {
+            const productsContainer = document.getElementById('productsContainer');
+            productsContainer.innerHTML = '<p>Carregando produtos...</p>';
+
+            database.ref('produtos').once('value', (snapshot) => {
+                productsContainer.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    productsContainer.innerHTML = '<p>Nenhum produto disponível.</p>';
+                    return;
+                }
+
+                snapshot.forEach((childSnapshot) => {
+                    const produto = childSnapshot.val();
+                    const productElement = document.createElement('div');
+                    productElement.className = 'product';
+                    productElement.dataset.id = produto.idProduto;
+                    productElement.innerHTML = `
+                        <img src="${produto.imagem || 'https://via.placeholder.com/300'}" alt="${produto.nome}">
+                        <h3>${produto.nome}</h3>
+                        <p class="price">${formatCurrency(produto.preco)}</p>
+                        <p class="description">${produto.descricao || 'Descrição não disponível'}</p>
+                        <button class="btn add-to-cart">Adicionar ao Carrinho</button>
+                    `;
+                    productsContainer.appendChild(productElement);
+                });
+
+                // Adicionar event listeners para adicionar ao carrinho
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productElement = this.closest('.product');
+                        const product = {
+                            id: productElement.dataset.id,
+                            name: productElement.querySelector('h3').textContent,
+                            price: parseFloat(productElement.querySelector('.price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.')),
+                            image: productElement.querySelector('img').src,
+                            quantity: 1
+                        };
+
+                        const existingItem = cart.find(item => item.id === product.id);
+                        if (existingItem) {
+                            existingItem.quantity += 1;
+                        } else {
+                            cart.push(product);
+                        }
+
+                        saveCart();
+                        
+                        // Mostrar popup de item adicionado
+                        showModal('addedToCartPopup');
+                        
+                        // Fechar automaticamente após 1 segundo
+                        setTimeout(() => {
+                            closeModal('addedToCartPopup');
+                        }, 1000);
+                    });
+                });
+            });
+        }
+
+        // Pesquisar clientes
+        function searchClientes() {
+            const searchTerm = document.getElementById('searchClientes').value.toLowerCase();
+            const clientesItems = document.querySelectorAll('.cliente-item');
+
+            clientesItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Pesquisar produtos
+        function searchProdutos() {
+            const searchTerm = document.getElementById('searchProdutos').value.toLowerCase();
+            const produtosItems = document.querySelectorAll('.produto-item');
+
+            produtosItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Pesquisar produtos na loja
+        function searchProducts() {
+            const input = document.getElementById('search').value.toLowerCase();
+            const allProducts = document.querySelectorAll('.product');
+
+            allProducts.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                const description = product.querySelector('.description')?.textContent.toLowerCase() || '';
+
+                if (title.includes(input) || description.includes(input)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Login
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -661,6 +896,7 @@
                 });
         });
 
+        // Registrar
         document.getElementById('register-button').addEventListener('click', () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -679,6 +915,7 @@
                 });
         });
 
+        // Recuperar senha
         document.getElementById('recover-password-button').addEventListener('click', () => {
             const email = document.getElementById('email').value;
             if (!email) {
@@ -694,6 +931,7 @@
                 });
         });
 
+        // Logout
         logoutButton.addEventListener('click', () => {
             auth.signOut();
         });
@@ -721,6 +959,7 @@
             }, 3000);
         });
 
+        // Verificar estado de autenticação
         auth.onAuthStateChanged((user) => {
             if (user) {
                 loginButton.style.display = 'none';
@@ -737,22 +976,22 @@
         // Aplicar modo salvo ao carregar a página
         applySavedMode();
 
-        // Função de pesquisa
-        function searchProducts() {
-            const input = document.getElementById('search').value.toLowerCase();
-            const allProducts = document.querySelectorAll('.product');
+        // Carregar produtos da loja quando a página carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStoreProducts();
+        });
 
-            allProducts.forEach(product => {
-                const title = product.querySelector('h3').textContent.toLowerCase();
-                const description = product.querySelector('.description')?.textContent.toLowerCase() || '';
+        // Event listeners para modais
+        closeButtons.forEach(button => {
+            button.addEventListener('click', closeAllModals);
+        });
 
-                if (title.includes(input) || description.includes(input)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        }
+        // Fechar modal quando clicar fora
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                closeAllModals();
+            }
+        });
     </script>
 </body>
 </html>

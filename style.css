@@ -401,37 +401,40 @@ body.light-mode .contact p {
     color: #555;
 }
 
-/* POPUP LOGIN */
-#loginPopup {
+/* MODAIS */
+.modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
 }
 
-.login-content {
-    position: relative;
+.modal-content {
     background-color: #191919;
-    margin: 10% auto;
     padding: 30px;
+    border-radius: 16px;
     width: 90%;
-    max-width: 400px;
-    border-radius: 12px;
-    color: #fff;
-    box-shadow: 0 0 15px rgba(64, 97, 90, 0.7);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-body.light-mode #loginPopup .login-content {
+body.light-mode .modal-content {
     background-color: #fff;
-    color: #333;
 }
 
-#closePopup {
+.close-modal {
     position: absolute;
     top: 15px;
     right: 20px;
@@ -443,17 +446,37 @@ body.light-mode #loginPopup .login-content {
     transition: color 0.3s ease;
 }
 
-body.light-mode #closePopup {
+body.light-mode .close-modal {
     color: #333;
 }
 
-#loginForm {
+.popup-icon {
+    font-size: 60px;
+    color: #40615a;
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.popup-buttons .btn {
+    flex: 1;
+}
+
+/* Formulários nos modais */
+form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 20px;
 }
 
-#loginForm input {
+form input {
     padding: 12px 15px;
     border: 1px solid #40615a;
     border-radius: 8px;
@@ -463,81 +486,99 @@ body.light-mode #closePopup {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-body.light-mode #loginForm input {
+body.light-mode form input {
     background-color: #f0f0f0;
     color: #333;
     border: 1px solid #ccc;
 }
 
-/* POPUPS DE CADASTRO */
-#clientesPopup, #produtosPopup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 9999;
-}
-
-#clientesPopup .login-content, #produtosPopup .login-content {
-    position: relative;
-    background-color: #191919;
-    margin: 10% auto;
-    padding: 30px;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 12px;
-    color: #fff;
-    box-shadow: 0 0 15px rgba(64, 97, 90, 0.7);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.light-mode #clientesPopup .login-content,
-body.light-mode #produtosPopup .login-content {
-    background-color: #fff;
-    color: #333;
-}
-
-#closeClientesPopup, #closeProdutosPopup {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    background: none;
-    border: none;
-    transition: color 0.3s ease;
-}
-
-body.light-mode #closeClientesPopup,
-body.light-mode #closeProdutosPopup {
-    color: #333;
-}
-
-#clientesForm, #produtosForm {
+.form-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-#clientesForm input, #produtosForm input {
-    padding: 12px 15px;
+.form-buttons .btn {
+    flex: 1;
+}
+
+.btn.clear {
+    background-color: transparent;
     border: 1px solid #40615a;
-    border-radius: 8px;
-    background-color: #101010;
-    color: #fff;
-    font-size: 1em;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    color: #40615a;
 }
 
-body.light-mode #clientesForm input,
-body.light-mode #produtosForm input {
+body.light-mode .btn.clear {
+    color: #40615a;
+}
+
+/* Listas de clientes e produtos */
+.clientes-list-container, .produtos-list-container {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #303030;
+}
+
+body.light-mode .clientes-list-container,
+body.light-mode .produtos-list-container {
+    border-top: 1px solid #e0e0e0;
+}
+
+.clientes-list, .produtos-list {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cliente-item, .produto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #252525;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .cliente-item,
+body.light-mode .produto-item {
     background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
+}
+
+.cliente-item:hover, .produto-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cliente-info, .produto-info {
+    flex: 1;
+}
+
+.cliente-info h4, .produto-info h4 {
+    color: #40615a;
+    margin-bottom: 5px;
+}
+
+.cliente-info p, .produto-info p {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-bottom: 3px;
+}
+
+body.light-mode .cliente-info p,
+body.light-mode .produto-info p {
+    color: #666;
+}
+
+.cliente-actions, .produto-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cliente-actions .btn, .produto-actions .btn {
+    padding: 8px 12px;
+    font-size: 0.8em;
 }
 
 /* Ícone do Carrinho */
@@ -608,6 +649,20 @@ a {
     .search-container {
         max-width: 100%;
         order: 2;
+    }
+    
+    .cliente-item, .produto-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .cliente-actions, .produto-actions {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .cliente-actions .btn, .produto-actions .btn {
+        width: 100%;
     }
 }
 
@@ -789,91 +844,7 @@ body.light-mode .empty-cart {
     text-align: center;
     display: inline-block;
 }
-/* MODAIS */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s;
-}
 
-.modal-content {
-    background-color: #191919;
-    padding: 30px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transform: translateY(0);
-    transition: all 0.3s ease;
-}
-
-body.light-mode .modal-content {
-    background-color: #fff;
-}
-
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    background: none;
-    border: none;
-    transition: color 0.3s ease;
-}
-
-body.light-mode .close-modal {
-    color: #333;
-}
-
-.popup-icon {
-    font-size: 60px;
-    color: #40615a;
-    text-align: center;
-    margin: 20px 0;
-    line-height: 1;
-}
-
-.popup-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.popup-buttons .btn {
-    flex: 1;
-}
-
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { 
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal-content {
-    animation: slideIn 0.3s ease forwards;
-}
 /* MODAIS TEMPORÁRIOS */
 .temporary-popup {
     pointer-events: none;
@@ -896,4 +867,16 @@ body.light-mode .mode-toggle-container img {
 
 body:not(.light-mode) .mode-toggle-container img {
     filter: invert(1);
+}
+
+/* Animações */
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
